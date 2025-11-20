@@ -1,0 +1,22 @@
+
+.location-picker.data-v-582ff75e {
+  width: 100%;
+}
+.location-content.data-v-582ff75e {
+  display: flex;
+  align-items: center;
+}
+.location-icon.data-v-582ff75e {
+  margin-right: 12rpx;
+}
+.location-text.data-v-582ff75e {
+  font-size: 28rpx;
+  color: #333;
+}
+.loading-icon.data-v-582ff75e {
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

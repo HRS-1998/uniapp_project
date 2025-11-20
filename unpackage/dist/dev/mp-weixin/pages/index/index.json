@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "navigation-bar": "../../components/navigation-bar",
+    "location-picker": "../../components/location-picker"
+  }
+}
