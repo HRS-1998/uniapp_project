@@ -1,0 +1,10 @@
+<import-sjs src="../wxs/utils.sjs" module="utils" />
+<import-sjs src="./index.sjs" module="computed" />
+
+<view class="van-progress custom-class" style="{{ computed.rootStyle({ strokeWidth, trackColor }) }}">
+  <view class="van-progress__portion" style="{{ computed.portionStyle({ percentage, inactive, color }) }}">
+    <view s-if="showPivot && computed.pivotText(pivotText, percentage)" style="{{ computed.pivotStyle({ textColor, pivotColor, inactive, color, right }) }}" class="van-progress__pivot">
+      {{ computed.pivotText(pivotText, percentage) }}
+    </view>
+  </view>
+</view>

@@ -1,0 +1,12 @@
+<import-sjs src="../wxs/utils.sjs" module="utils" />
+<import-sjs src="./index.sjs" module="computed" />
+
+<import src="./popup.swan" />
+
+<van-overlay s-if="overlay" show="{{ show }}" z-index="{{ zIndex }}" custom-style="{{ overlayStyle }}" duration="{{ duration }}" bind:click="onClickOverlay" lock-scroll="{{ lockScroll }}" root-portal="{{ rootPortal }}" />
+
+<root-portal s-if="rootPortal">
+  <include src="./popup.swan" />
+</root-portal>
+
+ <include s-else src="./popup.swan" />

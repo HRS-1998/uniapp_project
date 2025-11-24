@@ -1,0 +1,23 @@
+<import-sjs src="./index.sjs" module="utils" />
+
+<view s-if="showHeader" class="van-cascader__header">
+  <slot name="title" s-if="useTitleSlot"></slot>
+  <text class="van-cascader__title" s-else>{{ title }}</text>
+  <van-icon s-if="closeable" name="{{ closeIcon }}" class="van-cascader__close-icon" bind:tap="onClose" />
+</view>
+
+<van-tabs active="{{ activeTab }}" custom-class="van-cascader__tabs" wrap-class="van-cascader__tabs-wrap" tab-class="van-cascader__tab" color="{{ activeColor }}" border="{{ false }}" swipeable="{{ swipeable }}" ellipsis="{{ ellipsis }}" bind:click="onClickTab">
+  <van-tab s-for="tab, tabIndex in tabs" s-key="tabIndex" title="{{ tab.selected ? tab.selected[textKey] : placeholder }}" style="width: 100%;" title-style="{{ !tab.selected ? 'color: #969799;font-weight:normal;' : '' }}">
+    <!-- 暂不支持 -->
+    <!-- <slot name="options-top"></slot> -->
+
+    <view class="van-cascader__options">
+      <view s-for="option, index in tab.options" s-key="index" class="{{ option.className }} {{ utils.optionClass(tab, valueKey, option) }}" style="{{ utils.optionStyle({ tab, valueKey, option, activeColor }) }}" data-option="{{ option }}" data-tab-index="{{ tabIndex }}" bind:tap="onSelect">
+        <text>{{ option[textKey] }}</text>
+        <van-icon s-if="utils.isSelected(tab, valueKey, option)" name="success" size="18" />
+      </view>
+    </view>
+    <!-- 暂不支持 -->
+    <!-- <slot name="options-bottom"></slot> -->
+  </van-tab>
+</van-tabs>

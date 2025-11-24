@@ -1,0 +1,22 @@
+<import-sjs src="../wxs/utils.sjs" module="utils" />
+<import-sjs src="./index.sjs" module="computed" />
+
+<view class="custom-class van-empty">
+  <view class="van-empty__image">
+    <slot name="image"></slot>
+  </view>
+  <view class="van-empty__image">
+    <image s-if="image" class="van-empty__image__img" src="{{ computed.imageUrl(image) }}" />
+  </view>
+
+  <view class="van-empty__description">
+    <slot name="description"></slot>
+  </view>
+  <view class="van-empty__description">
+    {{ description }}
+  </view>
+
+  <view class="van-empty__bottom">
+    <slot></slot>
+  </view>
+</view>

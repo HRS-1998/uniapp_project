@@ -1,0 +1,7 @@
+<import src="./overlay.swan" />
+
+<root-portal s-if="rootPortal">
+  <include src="./overlay.swan" />
+</root-portal>
+
+<include s-else src="./overlay.swan" />

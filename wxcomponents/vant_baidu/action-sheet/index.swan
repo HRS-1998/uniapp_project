@@ -1,0 +1,28 @@
+<import-sjs src="../wxs/utils.sjs" module="utils" />
+
+<van-popup show="{{ show }}" position="bottom" round="{{ round }}" z-index="{{ zIndex }}" overlay="{{ overlay }}" custom-class="van-action-sheet custom-class" safe-area-inset-bottom="{{ safeAreaInsetBottom }}" close-on-click-overlay="{{ closeOnClickOverlay }}" root-portal="{{ rootPortal }}" bind:close="onClickOverlay">
+  <view s-if="title" class="van-action-sheet__header">
+    {{ title }}
+    <van-icon name="cross" custom-class="van-action-sheet__close" bind:click="onClose" />
+  </view>
+  <view s-if="description" class="van-action-sheet__description van-hairline--bottom">
+    {{ description }}
+  </view>
+  <view s-if="actions && actions.length" class="list-class">
+    <!-- button外包一层view，防止actions动态变化，导致渲染时button被打散 -->
+    <button s-for="item, index in actions" s-key="index" open-type="{{ item.disabled || item.loading || (canIUseGetUserProfile && item.openType === 'getUserInfo') ? '' : item.openType }}" style="{{ item.color ? 'color: ' + item.color : '' }}" class="{{ utils.bem('action-sheet__item', { disabled: item.disabled || item.loading }) }} {{ item.className || '' }}" hover-class="van-action-sheet__item--hover" data-index="{{ index }}" bindtap="{{ item.disabled || item.loading ? '' : 'onSelect' }}" bindgetuserinfo="onGetUserInfo" bindcontact="onContact" bindgetphonenumber="onGetPhoneNumber" binderror="onError" bindlaunchapp="onLaunchApp" bindopensetting="onOpenSetting" lang="{{ lang }}" session-from="{{ sessionFrom }}" send-message-title="{{ sendMessageTitle }}" send-message-path="{{ sendMessagePath }}" send-message-img="{{ sendMessageImg }}" show-message-card="{{ showMessageCard }}" app-parameter="{{ appParameter }}">
+      <block s-if="!item.loading">
+        {{ item.name }}
+        <view s-if="item.subname" class="van-action-sheet__subname">{{ item.subname }}</view>
+      </block>
+      <van-loading s-else custom-class="van-action-sheet__loading" size="22px" />
+    </button>
+  </view>
+  <slot />
+  <block s-if="cancelText">
+    <view class="van-action-sheet__gap" />
+    <view class="van-action-sheet__cancel" hover-class="van-action-sheet__cancel--hover" hover-stay-time="70" bind:tap="onCancel">
+      {{ cancelText }}
+    </view>
+  </block>
+</van-popup>

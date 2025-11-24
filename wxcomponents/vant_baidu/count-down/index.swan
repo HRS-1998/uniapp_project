@@ -1,0 +1,4 @@
+<view class="van-count-down">
+  <slot s-if="useSlot" />
+  <block s-else>{{ formattedTime }}</block>
+</view>

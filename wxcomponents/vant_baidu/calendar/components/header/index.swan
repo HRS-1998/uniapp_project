@@ -1,0 +1,16 @@
+<view class="van-calendar__header">
+  <block s-if="showTitle">
+    <view class="van-calendar__header-title"><slot name="title"></slot></view>
+    <view class="van-calendar__header-title">{{ title }}</view>
+  </block>
+
+  <view s-if="showSubtitle" class="van-calendar__header-subtitle" bind:tap="onClickSubtitle">
+    {{ subtitle }}
+  </view>
+
+  <view class="van-calendar__weekdays">
+    <view s-for="item, index in weekdays" s-key="index" class="van-calendar__weekday">
+      {{ item }}
+    </view>
+  </view>
+</view>

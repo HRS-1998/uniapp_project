@@ -1,0 +1,5 @@
+<import-sjs src="./index.sjs" module="computed" />
+
+<view class="van-row custom-class" style="{{ computed.rootStyle({ gutter }) }}">
+  <slot />
+</view>

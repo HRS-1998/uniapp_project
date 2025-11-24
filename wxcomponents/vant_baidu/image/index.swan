@@ -1,0 +1,15 @@
+<import-sjs src="../wxs/utils.sjs" module="utils" />
+<import-sjs src="./index.sjs" module="computed" />
+
+<view style="{{ computed.rootStyle({ width, height, radius }) }}" class="custom-class {{ utils.bem('image', { round })}}" bind:tap="onClick">
+  <image s-if="!error" src="{{ src }}" mode="{{ computed.mode(fit) }}" lazy-load="{{ lazyLoad }}" webp="{{ webp }}" class="image-class van-image__img" show-menu-by-longpress="{{ showMenuByLongpress }}" bind:load="onLoad" bind:error="onError" />
+
+  <view s-if="loading && showLoading" class="loading-class van-image__loading">
+    <slot s-if="useLoadingSlot" name="loading" />
+    <van-icon s-else name="photo" custom-class="van-image__loading-icon" />
+  </view>
+  <view s-if="error && showError" class="error-class van-image__error">
+    <slot s-if="useErrorSlot" name="error" />
+    <van-icon s-else name="photo-fail" custom-class="van-image__error-icon" />
+  </view>
+</view>
