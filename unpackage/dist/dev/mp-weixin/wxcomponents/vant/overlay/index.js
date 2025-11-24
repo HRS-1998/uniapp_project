@@ -2,22 +2,29 @@ import { VantComponent } from '../common/component';
 VantComponent({
     props: {
         show: Boolean,
-        mask: Boolean,
         customStyle: String,
         duration: {
-            type: [Number, Object],
-            value: 300
+            type: null,
+            value: 300,
         },
         zIndex: {
             type: Number,
-            value: 1
-        }
+            value: 1,
+        },
+        lockScroll: {
+            type: Boolean,
+            value: true,
+        },
+        rootPortal: {
+            type: Boolean,
+            value: false,
+        },
     },
     methods: {
         onClick() {
             this.$emit('click');
         },
         // for prevent touchmove
-        noop() { }
-    }
+        noop() { },
+    },
 });

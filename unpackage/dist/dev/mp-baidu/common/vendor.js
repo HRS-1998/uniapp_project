@@ -68,8 +68,8 @@ const capitalize = cacheStringFunction((str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 });
 const toHandlerKey = cacheStringFunction((str) => {
-  const s = str ? `on${capitalize(str)}` : ``;
-  return s;
+  const s2 = str ? `on${capitalize(str)}` : ``;
+  return s2;
 });
 const hasChanged = (value, oldValue) => !Object.is(value, oldValue);
 const invokeArrayFns$1 = (fns, arg) => {
@@ -85,9 +85,59 @@ const def = (obj, key, value) => {
   });
 };
 const looseToNumber = (val) => {
-  const n = parseFloat(val);
-  return isNaN(n) ? val : n;
+  const n2 = parseFloat(val);
+  return isNaN(n2) ? val : n2;
 };
+function normalizeStyle(value) {
+  if (isArray(value)) {
+    const res = {};
+    for (let i = 0; i < value.length; i++) {
+      const item = value[i];
+      const normalized = isString(item) ? parseStringStyle(item) : normalizeStyle(item);
+      if (normalized) {
+        for (const key in normalized) {
+          res[key] = normalized[key];
+        }
+      }
+    }
+    return res;
+  } else if (isString(value) || isObject(value)) {
+    return value;
+  }
+}
+const listDelimiterRE = /;(?![^(]*\))/g;
+const propertyDelimiterRE = /:([^]+)/;
+const styleCommentRE = /\/\*[^]*?\*\//g;
+function parseStringStyle(cssText) {
+  const ret = {};
+  cssText.replace(styleCommentRE, "").split(listDelimiterRE).forEach((item) => {
+    if (item) {
+      const tmp = item.split(propertyDelimiterRE);
+      tmp.length > 1 && (ret[tmp[0].trim()] = tmp[1].trim());
+    }
+  });
+  return ret;
+}
+function normalizeClass(value) {
+  let res = "";
+  if (isString(value)) {
+    res = value;
+  } else if (isArray(value)) {
+    for (let i = 0; i < value.length; i++) {
+      const normalized = normalizeClass(value[i]);
+      if (normalized) {
+        res += normalized + " ";
+      }
+    }
+  } else if (isObject(value)) {
+    for (const name in value) {
+      if (value[name]) {
+        res += name + " ";
+      }
+    }
+  }
+  return res.trim();
+}
 const toDisplayString = (val) => {
   return isString(val) ? val : val == null ? "" : isArray(val) || isObject(val) && (val.toString === objectToString || !isFunction(val.toString)) ? JSON.stringify(val, replacer, 2) : String(val);
 };
@@ -412,8 +462,8 @@ const E = function() {
 E.prototype = {
   _id: 1,
   on: function(name, callback, ctx) {
-    var e = this.e || (this.e = {});
-    (e[name] || (e[name] = [])).push({
+    var e2 = this.e || (this.e = {});
+    (e2[name] || (e2[name] = [])).push({
       fn: callback,
       ctx,
       _id: this._id
@@ -440,8 +490,8 @@ E.prototype = {
     return this;
   },
   off: function(name, event) {
-    var e = this.e || (this.e = {});
-    var evts = e[name];
+    var e2 = this.e || (this.e = {});
+    var evts = e2[name];
     var liveEvents = [];
     if (evts && event) {
       for (var i = evts.length - 1; i >= 0; i--) {
@@ -452,7 +502,7 @@ E.prototype = {
       }
       liveEvents = evts;
     }
-    liveEvents.length ? e[name] = liveEvents : delete e[name];
+    liveEvents.length ? e2[name] = liveEvents : delete e2[name];
     return this;
   }
 };
@@ -534,6 +584,9 @@ class EffectScope {
       this._active = false;
     }
   }
+}
+function effectScope(detached) {
+  return new EffectScope(detached);
 }
 function recordEffectScope(effect2, scope = activeEffectScope) {
   if (scope && scope.active) {
@@ -1341,6 +1394,9 @@ function isReadonly(value) {
 function isShallow(value) {
   return !!(value && value["__v_isShallow"]);
 }
+function isProxy(value) {
+  return isReactive(value) || isReadonly(value);
+}
 function toRaw(observed) {
   const raw = observed && observed["__v_raw"];
   return raw ? toRaw(raw) : observed;
@@ -2132,6 +2188,47 @@ function setCurrentRenderingInstance(instance) {
   instance && instance.type.__scopeId || null;
   return prev;
 }
+const COMPONENTS = "components";
+function resolveComponent(name, maybeSelfReference) {
+  return resolveAsset(COMPONENTS, name, true, maybeSelfReference) || name;
+}
+function resolveAsset(type, name, warnMissing = true, maybeSelfReference = false) {
+  const instance = currentRenderingInstance || currentInstance;
+  if (instance) {
+    const Component2 = instance.type;
+    if (type === COMPONENTS) {
+      const selfName = getComponentName(
+        Component2,
+        false
+      );
+      if (selfName && (selfName === name || selfName === camelize(name) || selfName === capitalize(camelize(name)))) {
+        return Component2;
+      }
+    }
+    const res = (
+      // local registration
+      // check instance[type] first which is resolved for options API
+      resolve(instance[type] || Component2[type], name) || // global registration
+      resolve(instance.appContext[type], name)
+    );
+    if (!res && maybeSelfReference) {
+      return Component2;
+    }
+    if (warnMissing && !res) {
+      const extra = type === COMPONENTS ? `
+If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.` : ``;
+      warn$1(`Failed to resolve ${type.slice(0, -1)}: ${name}${extra}`);
+    }
+    return res;
+  } else {
+    warn$1(
+      `resolve${capitalize(type.slice(0, -1))} can only be used in render() or setup().`
+    );
+  }
+}
+function resolve(registry, name) {
+  return registry && (registry[name] || registry[camelize(name)] || registry[capitalize(camelize(name))]);
+}
 const INITIAL_WATCHER_VALUE = {};
 function watch(source, cb, options) {
   if (!isFunction(cb)) {
@@ -2534,6 +2631,15 @@ function inject(key, defaultValue, treatDefaultAsFactory = false) {
   } else {
     warn$1(`inject() can only be used inside setup() or functional components.`);
   }
+}
+/*! #__NO_SIDE_EFFECTS__ */
+// @__NO_SIDE_EFFECTS__
+function defineComponent(options, extraOptions) {
+  return isFunction(options) ? (
+    // #8326: extend call and options.name access are considered side-effects
+    // by Rollup, so we have to wrap it in a pure-annotated IIFE.
+    /* @__PURE__ */ (() => extend({ name: options.name }, extraOptions, { setup: options }))()
+  ) : options;
 }
 const isKeepAlive = (vnode) => vnode.type.__isKeepAlive;
 function onActivated(hook, target) {
@@ -3745,6 +3851,12 @@ const Comment = Symbol.for("v-cmt");
 const Static = Symbol.for("v-stc");
 function isVNode(value) {
   return value ? value.__v_isVNode === true : false;
+}
+const InternalObjectKey = `__vInternal`;
+function guardReactiveProps(props) {
+  if (!props)
+    return null;
+  return isProxy(props) || InternalObjectKey in props ? extend({}, props) : props;
 }
 const emptyAppContext = createAppContext();
 let uid = 0;
@@ -4986,6 +5098,11 @@ function initApp(app) {
   }
 }
 const propsCaches = /* @__PURE__ */ Object.create(null);
+function renderProps(props) {
+  const { uid: uid2, __counter } = getCurrentInstance();
+  const propsId = (propsCaches[uid2] || (propsCaches[uid2] = [])).push(guardReactiveProps(props)) - 1;
+  return uid2 + "," + propsId + "," + __counter;
+}
 function pruneComponentPropsCache(uid2) {
   delete propsCaches[uid2];
 }
@@ -5026,7 +5143,175 @@ function getCreateApp() {
     return my[method];
   }
 }
+function stringifyStyle(value) {
+  if (isString(value)) {
+    return value;
+  }
+  return stringify(normalizeStyle(value));
+}
+function stringify(styles) {
+  let ret = "";
+  if (!styles || isString(styles)) {
+    return ret;
+  }
+  for (const key in styles) {
+    ret += `${key.startsWith(`--`) ? key : hyphenate(key)}:${styles[key]};`;
+  }
+  return ret;
+}
+function vOn(value, key) {
+  const instance = getCurrentInstance();
+  const ctx = instance.ctx;
+  const extraKey = typeof key !== "undefined" && (ctx.$mpPlatform === "mp-weixin" || ctx.$mpPlatform === "mp-qq" || ctx.$mpPlatform === "mp-xhs") && (isString(key) || typeof key === "number") ? "_" + key : "";
+  const name = "e" + instance.$ei++ + extraKey;
+  const mpInstance = ctx.$scope;
+  if (!value) {
+    delete mpInstance[name];
+    return name;
+  }
+  const existingInvoker = mpInstance[name];
+  if (existingInvoker) {
+    existingInvoker.value = value;
+  } else {
+    mpInstance[name] = createInvoker(value, instance);
+  }
+  return name;
+}
+function createInvoker(initialValue, instance) {
+  const invoker = (e2) => {
+    patchMPEvent(e2);
+    let args = [e2];
+    if (instance && instance.ctx.$getTriggerEventDetail) {
+      if (typeof e2.detail === "number") {
+        e2.detail = instance.ctx.$getTriggerEventDetail(e2.detail);
+      }
+    }
+    if (e2.detail && e2.detail.__args__) {
+      args = e2.detail.__args__;
+    }
+    const eventValue = invoker.value;
+    const invoke = () => callWithAsyncErrorHandling(patchStopImmediatePropagation(e2, eventValue), instance, 5, args);
+    const eventTarget = e2.target;
+    const eventSync = eventTarget ? eventTarget.dataset ? String(eventTarget.dataset.eventsync) === "true" : false : false;
+    if (bubbles.includes(e2.type) && !eventSync) {
+      setTimeout(invoke);
+    } else {
+      const res = invoke();
+      if (e2.type === "input" && (isArray(res) || isPromise(res))) {
+        return;
+      }
+      return res;
+    }
+  };
+  invoker.value = initialValue;
+  return invoker;
+}
+const bubbles = [
+  // touch事件暂不做延迟，否则在 Android 上会影响性能，比如一些拖拽跟手手势等
+  // 'touchstart',
+  // 'touchmove',
+  // 'touchcancel',
+  // 'touchend',
+  "tap",
+  "longpress",
+  "longtap",
+  "transitionend",
+  "animationstart",
+  "animationiteration",
+  "animationend",
+  "touchforcechange"
+];
+function patchMPEvent(event, instance) {
+  if (event.type && event.target) {
+    event.preventDefault = NOOP;
+    event.stopPropagation = NOOP;
+    event.stopImmediatePropagation = NOOP;
+    if (!hasOwn(event, "detail")) {
+      event.detail = {};
+    }
+    if (hasOwn(event, "markerId")) {
+      event.detail = typeof event.detail === "object" ? event.detail : {};
+      event.detail.markerId = event.markerId;
+    }
+    if (isPlainObject(event.detail) && hasOwn(event.detail, "checked") && !hasOwn(event.detail, "value")) {
+      event.detail.value = event.detail.checked;
+    }
+    if (isPlainObject(event.detail)) {
+      event.target = extend({}, event.target, event.detail);
+    }
+  }
+}
+function patchStopImmediatePropagation(e2, value) {
+  if (isArray(value)) {
+    const originalStop = e2.stopImmediatePropagation;
+    e2.stopImmediatePropagation = () => {
+      originalStop && originalStop.call(e2);
+      e2._stopped = true;
+    };
+    return value.map((fn) => (e3) => !e3._stopped && fn(e3));
+  } else {
+    return value;
+  }
+}
+function vFor(source, renderItem) {
+  let ret;
+  if (isArray(source) || isString(source)) {
+    ret = new Array(source.length);
+    for (let i = 0, l = source.length; i < l; i++) {
+      ret[i] = renderItem(source[i], i, i);
+    }
+  } else if (typeof source === "number") {
+    if (!Number.isInteger(source)) {
+      warn(`The v-for range expect an integer value but got ${source}.`);
+      return [];
+    }
+    ret = new Array(source);
+    for (let i = 0; i < source; i++) {
+      ret[i] = renderItem(i + 1, i, i);
+    }
+  } else if (isObject(source)) {
+    if (source[Symbol.iterator]) {
+      ret = Array.from(source, (item, i) => renderItem(item, i, i));
+    } else {
+      const keys = Object.keys(source);
+      ret = new Array(keys.length);
+      for (let i = 0, l = keys.length; i < l; i++) {
+        const key = keys[i];
+        ret[i] = renderItem(source[key], key, i);
+      }
+    }
+  } else {
+    ret = [];
+  }
+  return ret;
+}
+function hasIdProp(_ctx) {
+  return _ctx.$.propsOptions && _ctx.$.propsOptions[0] && "id" in _ctx.$.propsOptions[0];
+}
+function getVirtualHostId(_ctx) {
+  return _ctx.$scope.virtualHostId;
+}
+function hasVirtualHostId(_ctx) {
+  return !!getVirtualHostId(_ctx);
+}
+function genIdWithVirtualHost(_ctx, idBinding) {
+  if (!hasVirtualHostId(_ctx) || hasIdProp(_ctx)) {
+    return idBinding;
+  }
+  return getVirtualHostId(_ctx);
+}
+function genUniElementId(_ctx, idBinding, genId) {
+  return genIdWithVirtualHost(_ctx, idBinding) || genId || "";
+}
+const o = (value, key) => vOn(value, key);
+const f = (source, renderItem) => vFor(source, renderItem);
+const s = (value) => stringifyStyle(value);
+const e = (target, ...sources) => extend(target, ...sources);
+const n = (value) => normalizeClass(value);
 const t = (val) => toDisplayString(val);
+const p = (props) => renderProps(props);
+const j = (obj) => JSON.stringify(obj);
+const gei = genUniElementId;
 function createApp$1(rootComponent, rootProps = null) {
   rootComponent && (rootComponent.mpType = "app");
   return createVueApp(rootComponent, rootProps).use(plugin);
@@ -5165,8 +5450,8 @@ function tryCatch(fn) {
   return function() {
     try {
       return fn.apply(fn, arguments);
-    } catch (e) {
-      console.error(e);
+    } catch (e2) {
+      console.error(e2);
     }
   };
 }
@@ -5348,8 +5633,8 @@ function promisify$1(name, fn) {
     if (hasCallback(args)) {
       return wrapperReturnValue(name, invokeApi(name, fn, extend({}, args), rest));
     }
-    return wrapperReturnValue(name, handlePromise(new Promise((resolve, reject) => {
-      invokeApi(name, fn, extend({}, args, { success: resolve, fail: reject }), rest);
+    return wrapperReturnValue(name, handlePromise(new Promise((resolve2, reject) => {
+      invokeApi(name, fn, extend({}, args, { success: resolve2, fail: reject }), rest);
     })));
   };
 }
@@ -5449,9 +5734,9 @@ let deviceDPR = 0;
 function checkDeviceWidth() {
   let windowWidth, pixelRatio, platform;
   {
-    const { windowWidth: w, pixelRatio: p, platform: pf } = getBaseSystemInfo();
+    const { windowWidth: w, pixelRatio: p2, platform: pf } = getBaseSystemInfo();
     windowWidth = w;
-    pixelRatio = p;
+    pixelRatio = p2;
     platform = pf;
   }
   deviceWidth = windowWidth;
@@ -5615,8 +5900,8 @@ const $once = defineSyncApi(API_ONCE, (name, callback) => {
 const $off = defineSyncApi(API_OFF, (name, callback) => {
   if (!isArray(name))
     name = name ? [name] : [];
-  name.forEach((n) => {
-    eventBus.off(n, callback);
+  name.forEach((n2) => {
+    eventBus.off(n2, callback);
   });
 }, OffProtocol);
 const $emit = defineSyncApi(API_EMIT, (name, ...args) => {
@@ -5628,7 +5913,7 @@ let enabled;
 function normalizePushMessage(message) {
   try {
     return JSON.parse(message);
-  } catch (e) {
+  } catch (e2) {
   }
   return message;
 }
@@ -5668,7 +5953,7 @@ function invokeGetPushCidCallbacks(cid2, errMsg) {
   getPushCidCallbacks.length = 0;
 }
 const API_GET_PUSH_CLIENT_ID = "getPushClientId";
-const getPushClientId = defineAsyncApi(API_GET_PUSH_CLIENT_ID, (_, { resolve, reject }) => {
+const getPushClientId = defineAsyncApi(API_GET_PUSH_CLIENT_ID, (_, { resolve: resolve2, reject }) => {
   Promise.resolve().then(() => {
     if (typeof enabled === "undefined") {
       enabled = false;
@@ -5677,7 +5962,7 @@ const getPushClientId = defineAsyncApi(API_GET_PUSH_CLIENT_ID, (_, { resolve, re
     }
     getPushCidCallbacks.push((cid2, errMsg) => {
       if (cid2) {
-        resolve({ cid: cid2 });
+        resolve2({ cid: cid2 });
       } else {
         reject(errMsg);
       }
@@ -5746,9 +6031,9 @@ function promisify(name, api) {
     if (isFunction(options.success) || isFunction(options.fail) || isFunction(options.complete)) {
       return wrapperReturnValue(name, invokeApi(name, api, extend({}, options), rest));
     }
-    return wrapperReturnValue(name, handlePromise(new Promise((resolve, reject) => {
+    return wrapperReturnValue(name, handlePromise(new Promise((resolve2, reject) => {
       invokeApi(name, api, extend({}, options, {
-        success: resolve,
+        success: resolve2,
         fail: reject
       }), rest);
     })));
@@ -6200,7 +6485,7 @@ function requestPayment(params) {
   if (isString(params.orderInfo)) {
     try {
       params.orderInfo = JSON.parse(params.orderInfo);
-    } catch (e) {
+    } catch (e2) {
       parseError = true;
     }
   }
@@ -6348,13 +6633,13 @@ function initRuntimeSocket(hosts, port, id2) {
 }
 const SOCKET_TIMEOUT = 500;
 function tryConnectSocket(host, port, id2) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve2, reject) => {
     const socket = index.connectSocket({
       url: `ws://${host}:${port}/${id2}`,
       multiple: true,
       // 支付宝小程序 是否开启多实例
       fail() {
-        resolve(null);
+        resolve2(null);
       }
     });
     const timer = setTimeout(() => {
@@ -6362,19 +6647,19 @@ function tryConnectSocket(host, port, id2) {
         code: 1006,
         reason: "connect timeout"
       });
-      resolve(null);
+      resolve2(null);
     }, SOCKET_TIMEOUT);
-    socket.onOpen((e) => {
+    socket.onOpen((e2) => {
       clearTimeout(timer);
-      resolve(socket);
+      resolve2(socket);
     });
-    socket.onClose((e) => {
+    socket.onClose((e2) => {
       clearTimeout(timer);
-      resolve(null);
+      resolve2(null);
     });
-    socket.onError((e) => {
+    socket.onError((e2) => {
       clearTimeout(timer);
-      resolve(null);
+      resolve2(null);
     });
   });
 }
@@ -6473,7 +6758,7 @@ function formatMessage(type, args) {
       type,
       args: formatArgs(args)
     };
-  } catch (e) {
+  } catch (e2) {
   }
   return {
     type,
@@ -6501,7 +6786,7 @@ function formatArg(arg, depth = 0) {
     case "object":
       try {
         return formatObject(arg, depth);
-      } catch (e) {
+      } catch (e2) {
         return {
           type: "object",
           value: {
@@ -6841,9 +7126,9 @@ function isConsoleWritable() {
   return isWritable;
 }
 function initRuntimeSocketService() {
-  const hosts = "172.16.40.190,127.0.0.1";
+  const hosts = "172.16.40.91,127.0.0.1";
   const port = "8090";
-  const id2 = "mp-baidu_ACWSEt";
+  const id2 = "mp-baidu_0yGxHx";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -7006,7 +7291,7 @@ function handleEvent(event) {
     let eventObj = {};
     try {
       eventObj = JSON.parse(__ins__.properties[EVENT_OPTS]);
-    } catch (e) {
+    } catch (e2) {
     }
     methodName = resolveMethodName(type, eventObj);
   } else if (dataset && dataset[EVENT_OPTS]) {
@@ -7927,8 +8212,145 @@ swan.createApp = global.createApp = createApp;
 swan.createPage = createPage;
 swan.createComponent = createComponent;
 swan.createSubpackageApp = global.createSubpackageApp = createSubpackageApp;
+var isVue2 = false;
+/*!
+ * pinia v2.1.7
+ * (c) 2023 Eduardo San Martin Morote
+ * @license MIT
+ */
+const piniaSymbol = Symbol("pinia");
+var MutationType;
+(function(MutationType2) {
+  MutationType2["direct"] = "direct";
+  MutationType2["patchObject"] = "patch object";
+  MutationType2["patchFunction"] = "patch function";
+})(MutationType || (MutationType = {}));
+const IS_CLIENT = typeof window !== "undefined";
+const USE_DEVTOOLS = IS_CLIENT;
+const componentStateTypes = [];
+const getStoreType = (id2) => "🍍 " + id2;
+function addStoreToDevtools(app, store) {
+  if (!componentStateTypes.includes(getStoreType(store.$id))) {
+    componentStateTypes.push(getStoreType(store.$id));
+  }
+}
+function patchActionForGrouping(store, actionNames, wrapWithProxy) {
+  const actions = actionNames.reduce((storeActions, actionName) => {
+    storeActions[actionName] = toRaw(store)[actionName];
+    return storeActions;
+  }, {});
+  for (const actionName in actions) {
+    store[actionName] = function() {
+      const trackedStore = wrapWithProxy ? new Proxy(store, {
+        get(...args) {
+          return Reflect.get(...args);
+        },
+        set(...args) {
+          return Reflect.set(...args);
+        }
+      }) : store;
+      const retValue = actions[actionName].apply(trackedStore, arguments);
+      return retValue;
+    };
+  }
+}
+function devtoolsPlugin({ app, store, options }) {
+  if (store.$id.startsWith("__hot:")) {
+    return;
+  }
+  store._isOptionsAPI = !!options.state;
+  patchActionForGrouping(store, Object.keys(options.actions), store._isOptionsAPI);
+  const originalHotUpdate = store._hotUpdate;
+  toRaw(store)._hotUpdate = function(newStore) {
+    originalHotUpdate.apply(this, arguments);
+    patchActionForGrouping(store, Object.keys(newStore._hmrPayload.actions), !!store._isOptionsAPI);
+  };
+  addStoreToDevtools(
+    app,
+    // FIXME: is there a way to allow the assignment from Store<Id, S, G, A> to StoreGeneric?
+    store
+  );
+}
+function createPinia() {
+  const scope = effectScope(true);
+  const state = scope.run(() => ref({}));
+  let _p = [];
+  let toBeInstalled = [];
+  const pinia = markRaw({
+    install(app) {
+      {
+        pinia._a = app;
+        app.provide(piniaSymbol, pinia);
+        app.config.globalProperties.$pinia = pinia;
+        toBeInstalled.forEach((plugin2) => _p.push(plugin2));
+        toBeInstalled = [];
+      }
+    },
+    use(plugin2) {
+      if (!this._a && !isVue2) {
+        toBeInstalled.push(plugin2);
+      } else {
+        _p.push(plugin2);
+      }
+      return this;
+    },
+    _p,
+    // it's actually undefined here
+    // @ts-expect-error
+    _a: null,
+    _e: scope,
+    _s: /* @__PURE__ */ new Map(),
+    state
+  });
+  if (USE_DEVTOOLS && typeof Proxy !== "undefined") {
+    pinia.use(devtoolsPlugin);
+  }
+  return pinia;
+}
+/*!
+  * vue-router v4.4.4
+  * (c) 2024 Eduardo San Martin Morote
+  * @license MIT
+  */
+var NavigationType;
+(function(NavigationType2) {
+  NavigationType2["pop"] = "pop";
+  NavigationType2["push"] = "push";
+})(NavigationType || (NavigationType = {}));
+var NavigationDirection;
+(function(NavigationDirection2) {
+  NavigationDirection2["back"] = "back";
+  NavigationDirection2["forward"] = "forward";
+  NavigationDirection2["unknown"] = "";
+})(NavigationDirection || (NavigationDirection = {}));
+var NavigationFailureType;
+(function(NavigationFailureType2) {
+  NavigationFailureType2[NavigationFailureType2["aborted"] = 4] = "aborted";
+  NavigationFailureType2[NavigationFailureType2["cancelled"] = 8] = "cancelled";
+  NavigationFailureType2[NavigationFailureType2["duplicated"] = 16] = "duplicated";
+})(NavigationFailureType || (NavigationFailureType = {}));
+const routerKey = Symbol("router");
+function useRouter() {
+  return inject(routerKey);
+}
 exports._export_sfc = _export_sfc;
+exports.computed = computed;
+exports.createPinia = createPinia;
 exports.createSSRApp = createSSRApp;
+exports.defineComponent = defineComponent;
+exports.e = e;
+exports.f = f;
+exports.gei = gei;
 exports.index = index;
+exports.j = j;
+exports.n = n;
+exports.nextTick$1 = nextTick$1;
+exports.o = o;
+exports.onMounted = onMounted;
+exports.p = p;
+exports.ref = ref;
+exports.resolveComponent = resolveComponent;
+exports.s = s;
 exports.t = t;
+exports.useRouter = useRouter;
 //# sourceMappingURL=../../.sourcemap/mp-baidu/common/vendor.js.map

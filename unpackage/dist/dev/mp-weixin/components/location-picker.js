@@ -23,101 +23,68 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       longitude: 0
     });
     const isLoading = common_vendor.ref(false);
-    const checkLocationAuth = () => {
-      return new Promise((resolve, reject) => {
-        common_vendor.index.getSetting({
-          success: (res) => {
-            if (res.authSetting["scope.userLocation"]) {
-              resolve(true);
-            } else {
-              reject(false);
-            }
-          },
-          fail: (err) => {
-            reject(err);
-          }
-        });
-      });
-    };
-    const requestLocationAuth = () => {
-      return new Promise((resolve, reject) => {
-        common_vendor.index.authorize({
-          scope: "scope.userLocation",
-          success: () => {
-            resolve(true);
-          },
-          fail: (err) => {
-            reject(err);
-          }
-        });
-      });
-    };
-    const getLocationInfo = () => {
-      return new Promise((resolve, reject) => {
-        common_vendor.index.getLocation({
-          type: "gcj02",
-          altitude: true,
-          success: (res) => {
-            resolve(res);
-          },
-          fail: (err) => {
-            reject(err);
-          }
-        });
-      });
-    };
-    const reverseGeocode = async (latitude, longitude) => {
-      try {
-        return {
-          address: "北京市朝阳区",
-          formattedAddress: "北京市朝阳区某某街道某某号"
-        };
-      } catch (error) {
-        common_vendor.index.__f__("error", "at components/location-picker.vue:80", "逆地理编码失败", error);
-        return {
-          address: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`,
-          formattedAddress: `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
-        };
-      }
-    };
     const handleLocation = async () => {
       if (props.disabled || isLoading.value)
         return;
       isLoading.value = true;
       try {
-        try {
-          await checkLocationAuth();
-        } catch {
-          try {
-            await requestLocationAuth();
-          } catch {
-            common_vendor.index.showModal({
-              title: "提示",
-              content: "请在设置中打开位置权限",
-              confirmText: "去设置",
-              success: (res) => {
-                if (res.confirm) {
-                  common_vendor.index.openSetting();
+        common_vendor.index.getLocation({
+          type: "gcj02",
+          highAccuracyExpireTime: 3e3,
+          isHighAccuracy: true,
+          success: async (res) => {
+            const { latitude, longitude } = res;
+            common_vendor.index.request({
+              url: "https://restapi.amap.com/v3/geocode/regeo",
+              method: "GET",
+              data: {
+                key: "fdcbd1a63fa5fe1b64ac5b53de5ebb78",
+                // 、高德地图key
+                location: `${longitude},${latitude}`,
+                extensions: "base",
+                s: "rsx",
+                sdkversion: "sdkVERSION"
+              },
+              success: (geoRes) => {
+                let address = "";
+                common_vendor.index.__f__("log", "at components/location-picker.vue:74", geoRes);
+                if (geoRes.data && geoRes.data.regeocode) {
+                  address = geoRes.data.regeocode.formatted_address || geoRes.data.regeocode.addressComponent.province;
+                } else {
+                  address = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
                 }
+                currentAddress.value = address;
+                location.value = { latitude, longitude };
+                emit("change", address, { latitude, longitude });
+              },
+              fail: () => {
+                const address = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+                currentAddress.value = address;
+                location.value = { latitude, longitude };
+                emit("change", address, { latitude, longitude });
+              },
+              complete: () => {
+                isLoading.value = false;
               }
             });
-            return;
+          },
+          fail: (err) => {
+            common_vendor.index.__f__("error", "at components/location-picker.vue:101", "获取位置信息失败", err);
+            currentAddress.value = props.placeholder || "选择位置";
+            common_vendor.index.showToast({
+              title: "获取位置失败",
+              icon: "none"
+            });
+            isLoading.value = false;
           }
-        }
-        const locationRes = await getLocationInfo();
-        const { latitude, longitude } = locationRes;
-        const addressInfo = await reverseGeocode(latitude, longitude);
-        currentAddress.value = addressInfo.address;
-        location.value = { latitude, longitude };
-        emit("change", addressInfo.address, { latitude, longitude });
+        });
       } catch (error) {
-        common_vendor.index.__f__("error", "at components/location-picker.vue:128", "获取位置信息失败", error);
+        common_vendor.index.__f__("error", "at components/location-picker.vue:111", "获取位置信息失败", error);
         currentAddress.value = props.placeholder || "选择位置";
         common_vendor.index.showToast({
           title: "获取位置失败",
           icon: "none"
         });
-      } finally {
         isLoading.value = false;
       }
     };
@@ -126,25 +93,37 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         return;
       common_vendor.index.chooseLocation({
         success: (res) => {
-          currentAddress.value = res.name;
+          currentAddress.value = res.name || res.address;
           location.value = {
             latitude: res.latitude,
             longitude: res.longitude
           };
-          emit("change", res.name, location.value);
+          emit("change", res.name || res.address, location.value);
         },
         fail: (err) => {
-          common_vendor.index.__f__("error", "at components/location-picker.vue:152", "选择位置失败", err);
-          if (err.errMsg.includes("auth deny")) {
+          common_vendor.index.__f__("error", "at components/location-picker.vue:135", "选择位置失败", err);
+          if (err.errMsg && (err.errMsg.includes("fail auth deny") || err.errMsg.includes("fail authorize"))) {
             common_vendor.index.showModal({
-              title: "提示",
-              content: "请在设置中打开位置权限",
+              title: "权限拒绝",
+              content: "请在设置中允许使用位置权限以正常使用地图功能",
+              showCancel: true,
               confirmText: "去设置",
-              success: (res) => {
-                if (res.confirm) {
-                  common_vendor.index.openSetting();
+              success: (modalRes) => {
+                if (modalRes.confirm) {
+                  common_vendor.index.openSetting({
+                    success: (settingRes) => {
+                      if (settingRes.authSetting["scope.userLocation"]) {
+                        chooseLocation();
+                      }
+                    }
+                  });
                 }
               }
+            });
+          } else {
+            common_vendor.index.showToast({
+              title: "选择位置失败",
+              icon: "none"
             });
           }
         }
@@ -181,7 +160,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         g: common_vendor.p({
           disabled: _ctx.disabled
         }),
-        h: common_vendor.o(chooseLocation)
+        h: common_vendor.o(chooseLocation),
+        i: common_vendor.gei(_ctx, "")
       });
     };
   }

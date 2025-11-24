@@ -1,23 +1,270 @@
-
-.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.shop.data-v-1cf27b2a {
+  marign-top: 90rpx;
+  background: #f5f5f5;
+  height: 100vh;
 }
-.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
+.shop .popup.data-v-1cf27b2a {
+  background: #fff;
 }
-.text-area {
-		display: flex;
-		justify-content: center;
+.shop .popup__head.data-v-1cf27b2a {
+  font-size: 17px;
+  font-weight: bold;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
 }
-.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+.shop .popup__main.data-v-1cf27b2a {
+  padding: 0 22rpx;
+}
+.shop .popup__main .title.data-v-1cf27b2a {
+  font-size: 26rpx;
+  color: #000;
+  font-weight: 500;
+}
+.shop .popup__main .tag.data-v-1cf27b2a {
+  margin-top: 4rpx;
+  overflow: hidden;
+}
+.shop .popup__main .mt-20.data-v-1cf27b2a {
+  margin-top: 22rpx;
+}
+.shop .popup__main .tag__item.data-v-1cf27b2a {
+  border-radius: 4rpx;
+  display: inline-flex;
+  align-items: center;
+  padding: 18rpx 32rpx;
+  box-sizing: border-box;
+  font-size: 24rpx;
+  color: #67686f;
+  border: 1px solid #f8f8f9;
+  background-color: #f8f8f9;
+  margin-right: 16rpx;
+  margin-top: 16rpx;
+}
+.shop .popup__main .tag__item--checked.data-v-1cf27b2a {
+  border: 1px solid #e94359;
+  background-color: #fef9f7;
+}
+.shop .popup__main .goods-choose__btn.data-v-1cf27b2a {
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.shop .popup__main .goods-choose__btn .btn.data-v-1cf27b2a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  flex: 1;
+  text-align: center;
+  margin-right: 16rpx;
+}
+.shop .popup__main .goods-choose__btn .btn-reset.data-v-1cf27b2a {
+  background: #f8f8f9;
+  color: #8b8c90;
+}
+.shop .popup__main .goods-choose__btn .btn-comfirm.data-v-1cf27b2a {
+  background: #ff6759;
+  color: #fff;
+}
+.shop__top-con.data-v-1cf27b2a {
+  overflow: hidden;
+  overflow: auto;
+  background: #fff;
+}
+.shop__top-search.data-v-1cf27b2a {
+  margin-top: -2px;
+}
+.shop .van-cell.data-v-1cf27b2a:after {
+  border: 0;
+}
+.shop__banner.data-v-1cf27b2a {
+  padding: 90rpx 22rpx 0;
+}
+.shop__tabs.data-v-1cf27b2a {
+  padding: 20rpx 92rpx 0 22rpx;
+  height: 72rpx;
+  overflow: hidden;
+  position: relative;
+  background-color: #fff;
+}
+.shop__tabs .more.data-v-1cf27b2a {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  right: 22rpx;
+  top: 40rpx;
+}
+.shop__tabs .van-tab.data-v-1cf27b2a {
+  border-right: none;
+  background-color: #f3f3f3;
+  min-width: 160rpx;
+  height: 25rpx;
+  line-height: 72rpx;
+  border-radius: 5px;
+  font-size: 22rpx;
+  color: #787878;
+  transition: all 0.15s ease;
+  margin-right: 6px;
+}
+.shop__tabs .van-tab--active.data-v-1cf27b2a {
+  background-color: #ff6759;
+  color: #fff;
+}
+.shop__tabs .van-tabs__line.data-v-1cf27b2a {
+  display: none;
+}
+.shop__goodslist.data-v-1cf27b2a {
+  padding: 16rpx 22rpx 180rpx;
+  box-sizing: border-box;
+}
+.shop__goodslist .goodslist__box.data-v-1cf27b2a {
+  border-radius: 20rpx;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 16rpx;
+  background-color: #fff;
+  padding: 18rpx;
+  display: flex;
+}
+.shop__goodslist .goodslist__box wx-image.data-v-1cf27b2a, .shop__goodslist .goodslist__box .goodsimg.data-v-1cf27b2a {
+  width: 240rpx;
+  height: 240rpx;
+  flex-shrink: 0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.shop__goodslist .goodslist__box .goodsname.data-v-1cf27b2a {
+  padding: 0 0 0 24rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.shop__goodslist .goodslist__box .goodsname__text.data-v-1cf27b2a {
+  font-size: 0;
+  font-size: 28rpx;
+  color: #141414;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.shop__goodslist .goodslist__box .goodsname__text span.data-v-1cf27b2a {
+  display: inline-block;
+  vertical-align: middle;
+}
+.shop__goodslist .goodslist__box .goodsname__text wx-image.data-v-1cf27b2a, .shop__goodslist .goodslist__box .goodsname__text .icon-special.data-v-1cf27b2a {
+  margin-right: 5px;
+  display: inline-block;
+  flex: 1;
+  width: 92rpx;
+  height: 28rpx;
+}
+.shop__goodslist .goodslist__box .promotion.data-v-1cf27b2a {
+  padding: 0 4rpx;
+  box-sizing: border-box;
+  height: 30rpx;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(0deg, #ff4c3b, #ff6759);
+  border-radius: 2rpx;
+  font-size: 22rpx;
+  color: #fff;
+}
+.shop__goodslist .goodslist__box .promotion .icon-promotion.data-v-1cf27b2a {
+  margin-right: 2rpx;
+  display: inline-block;
+  width: 30rpx;
+  height: 30rpx;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAs9JREFUSEvFl0uojVEYhp8XyTUiDChEMqAMKClmSjkGLqUwkETJrVxTYnBQLrklIiO5DGQgnGJg4KRIcTLhGCiXgUtELrn+1qu162/7/7PXPpes2pNz1l7P+t71fe/3bfGflqq5WZYNANYAK4GnwDXgOtAq6VNn3bMI3B2YDOwFpgKGvQTOAueBF5J+d/QC/4B9YJZlhk8CjkR4N+ADcAvYA9yR9Ksj8EJwhBs2EzgOjAK89ydwH9gG3OwIvBQc4f2BrcA6oG+M0DLfA9YCdyVl7Ym8TXCETwAuAuNi1P6zZb7qJJT0rKvAA4HdwFKgdw7iN3cCHpb0uV54SsROtHnAsfAZkgNY4tbwWeR3r1fymuAo9/hYz6OrIvsSL9Qo6WM9UaeChwOXwrtOyb3z3zsBj4C5kh53BXgocAqYDVj6/HoHbAbOSPqeCk+NeBCwH1gcEq1n1eE/ohqrJb3tbLD9eyewImRyn4LDnWQNkp50NrhiJDaNfgWHvwKWAU2p2Z0qtV1rE7ChBOyM3gUclfQ1Jeqi7jQWsLT2ai/7syO2zPOBXgUH+51vhH0Hgr2+B3rkvutu9qb6O0Vgt7/pubJxyfgSvowjL1LJe74F/3aG204re+xuByWdTgE7c51IY0ogKUpWlLIKWyQ9TAFbygVBrkZgZCqlap87WDOwPphLS9HgUDYIOHOXx5Y4rE64ZW+JrbS5bFppaxAYHLN4VXzfFL6hrmU72ZW2BoVag4A92u+9pCSbqy/zPPj3jtC7z0lyspWumnWcZZnLy313Tq5Mig50ydhWT6R0qhSw90wEDgEzCpqEL2EDORnKbZ+k1ylvUhPsQ7Is875pcer09FkxF//bkl4I9btdkqVOWkngCHc7nBXdqTJ/2dWawuy9UZIbRfJKBke4W+LC6MsjgNvxV8eD1OZQuVld4Ai3dbphNMSMv9yeXxZ1g5O1rLHxD/Dm1B8e5UyWAAAAAElFTkSuQmCC");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.shop__goodslist .goodslist__box .goodsname .goodsprice.data-v-1cf27b2a {
+  margin-top: 5px;
+  padding-bottom: 0;
+}
+.shop__goodslist .goodslist__box .goodsname .goodsprice .unit.data-v-1cf27b2a {
+  margin-right: 2px;
+}
+.shop__goodslist .goodslist__box .goodsprice--rushorder-box.data-v-1cf27b2a {
+  width: 390rpx;
+  height: 82rpx;
+  position: relative;
+}
+.shop__goodslist .goodslist__box .goodsprice--rushorder.data-v-1cf27b2a {
+  width: 390rpx;
+  height: 82rpx;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.shop__goodslist .goodslist__box .pricedata.data-v-1cf27b2a {
+  display: flex;
+  align-items: flex-end;
+}
+.shop__goodslist .goodslist__box .goodsprice__text.data-v-1cf27b2a {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.shop__goodslist .goodslist__box .goodsprice__text .saleprice.data-v-1cf27b2a {
+  margin-right: 6rpx;
+  font-size: 36rpx;
+  color: #f22;
+}
+.shop__goodslist .goodslist__box .goodsprice__text .saleprice .unit.data-v-1cf27b2a {
+  font-size: 26rpx;
+  margin-bottom: -40rpx;
+  font-weight: 700;
+}
+.shop__goodslist .goodslist__box .goodsprice__text .saleprice .text.data-v-1cf27b2a {
+  font-weight: 700;
+}
+.shop__goodslist .goodslist__box .goodsprice__text .saleprice .decimal.data-v-1cf27b2a {
+  font-size: 26rpx;
+}
+.shop__goodslist .goodslist__box .goodsprice__text .price.data-v-1cf27b2a {
+  margin-right: 4rpx;
+  text-decoration: line-through;
+  font-size: 24rpx;
+  color: #858585;
+}
+.shop__goodslist .goodslist__box .goodsprice__text .success-rate.data-v-1cf27b2a {
+  font-size: 22rpx;
+  color: #f22;
 }

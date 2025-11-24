@@ -1,17 +1,19 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_assets = require("../../common/assets.js");
 if (!Array) {
   const _component_van_sticky = common_vendor.resolveComponent("van-sticky");
   const _component_van_search = common_vendor.resolveComponent("van-search");
-  const _component_van_image = common_vendor.resolveComponent("van-image");
+  const _easycom_u_image2 = common_vendor.resolveComponent("u-image");
   const _component_van_tab = common_vendor.resolveComponent("van-tab");
   const _component_van_tabs = common_vendor.resolveComponent("van-tabs");
   const _component_van_slider = common_vendor.resolveComponent("van-slider");
   const _component_van_popup = common_vendor.resolveComponent("van-popup");
-  (_component_van_sticky + _component_van_search + _component_van_image + _component_van_tab + _component_van_tabs + _component_van_slider + _component_van_popup)();
+  (_component_van_sticky + _component_van_search + _easycom_u_image2 + _component_van_tab + _component_van_tabs + _component_van_slider + _component_van_popup)();
 }
+const _easycom_u_image = () => "../../uni_modules/uview-plus/components/u-image/u-image.js";
 if (!Math) {
-  (NavigationBar + LocationPicker)();
+  (NavigationBar + LocationPicker + _easycom_u_image)();
 }
 const NavigationBar = () => "../../components/navigation-bar.js";
 const LocationPicker = () => "../../components/location-picker.js";
@@ -34,8 +36,11 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         name: "商品名称2商品名称2商品名称2商品名称2商品名称2"
       }
     ]);
+    const showPopup = () => {
+      show.value = true;
+    };
     const bindMapTap = (title) => {
-      common_vendor.index.__f__("log", "at pages/index/index.vue:32", title, "地址");
+      common_vendor.index.__f__("log", "at pages/index/index.vue:150", title, "地址");
     };
     const bindDetailTap = () => {
       common_vendor.index.showLoading({
@@ -48,7 +53,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         },
         fail: (err) => {
           common_vendor.index.hideLoading();
-          common_vendor.index.__f__("error", "at pages/index/index.vue:46", "页面跳转失败", err);
+          common_vendor.index.__f__("error", "at pages/index/index.vue:164", "页面跳转失败", err);
           common_vendor.index.showToast({
             title: "跳转失败",
             icon: "none"
@@ -70,7 +75,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       });
     };
     const onSearch = (event) => {
-      common_vendor.index.__f__("log", "at pages/index/index.vue:72", event.detail);
+      common_vendor.index.__f__("log", "at pages/index/index.vue:190", event.detail);
       getList();
     };
     const onTabsChange = (event) => {
@@ -98,75 +103,84 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           background: "#FFF"
         }),
         b: common_vendor.o(bindMapTap),
-        c: common_vendor.o(onSearch),
-        d: common_vendor.p({
+        c: common_vendor.p({
+          ["show-icon"]: true
+        }),
+        d: common_vendor.o(onSearch),
+        e: common_vendor.p({
           placeholder: "请输入购买的商品"
         }),
-        e: common_vendor.p({
-          offsetTop: 90
-        }),
         f: common_vendor.p({
-          width: "100%",
-          height: "100",
-          src: "//innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png"
+          ["offset-top"]: 90
         }),
         g: common_vendor.p({
-          title: "霸王茶姬"
+          width: "100%",
+          height: "100",
+          src: "http://innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png"
         }),
         h: common_vendor.p({
-          title: "汉堡王"
+          title: "霸王茶姬"
         }),
         i: common_vendor.p({
-          title: "星巴克"
+          title: "汉堡王"
         }),
         j: common_vendor.p({
-          title: "肯德基"
+          title: "星巴克"
         }),
         k: common_vendor.p({
-          title: "肯德基2"
+          title: "肯德基"
         }),
         l: common_vendor.p({
+          title: "肯德基2"
+        }),
+        m: common_vendor.p({
           title: "肯德基3"
         }),
-        m: common_vendor.o(onTabsChange),
-        n: common_vendor.p({
+        n: common_vendor.o(onTabsChange),
+        o: common_vendor.p({
           swipeable: true
         }),
-        o: common_vendor.p({
-          offsetTop: 180
+        p: common_vendor.o(showPopup),
+        q: common_assets._imports_0,
+        r: common_vendor.p({
+          ["offset-top"]: 180
         }),
-        p: common_vendor.o(onTag),
-        q: common_vendor.n({
+        s: common_vendor.o(onTag),
+        t: common_vendor.n({
           "tag__item--checked": currTag.value === "non-right"
         }),
-        r: common_vendor.o(onTag),
-        s: common_vendor.n({
+        v: common_vendor.o(onTag),
+        w: common_vendor.n({
           "tag__item--checked": currTag.value === "right"
         }),
-        t: common_vendor.o(priceChange),
-        v: common_vendor.o(($event) => price.value = $event),
-        w: common_vendor.p({
-          activeColor: "#ee0a24",
+        x: common_vendor.o(priceChange),
+        y: common_vendor.o(($event) => price.value = $event),
+        z: common_vendor.p({
+          ["active-color"]: "#ee0a24",
           min: 0,
           max: 100,
           modelValue: price.value
         }),
-        x: common_vendor.o(onResetPopup),
-        y: common_vendor.o(onSubmitPopup),
-        z: common_vendor.o(onClosePopup),
-        A: common_vendor.o(($event) => show.value = $event),
-        B: common_vendor.p({
+        A: common_vendor.o(onResetPopup),
+        B: common_vendor.o(onSubmitPopup),
+        C: common_vendor.o(onClosePopup),
+        D: common_vendor.o(($event) => show.value = $event),
+        E: common_vendor.p({
           position: "top",
           show: show.value
         }),
-        C: common_vendor.f(list.value, (item, index, i0) => {
+        F: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: common_vendor.t(item.name),
             b: common_vendor.o(bindDetailTap, item.id),
             c: item.id,
             d: index
           };
-        })
+        }),
+        G: common_assets._imports_1,
+        H: common_assets._imports_2,
+        I: common_assets._imports_3,
+        J: common_vendor.gei(_ctx, "")
       };
     };
   }

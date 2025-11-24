@@ -86,7 +86,8 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         f: common_vendor.p({
           name: "arrow",
           size: "28rpx"
-        })
+        }),
+        g: common_vendor.gei(_ctx, "")
       };
     };
   }

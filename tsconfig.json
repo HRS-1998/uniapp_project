@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./pages/*"]
+    },
+    "lib": ["esnext", "dom"],
+    "types": [
+        "@dcloudio/types",
+        "uni_modules/uview-plus/types"
+    ]
+  },
+  "include": ["pages/**/*.ts", "pages/**/*.d.ts", "pages/**/*.tsx", "pages/**/*.vue"]
+}

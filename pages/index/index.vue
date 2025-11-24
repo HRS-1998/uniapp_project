@@ -1,3 +1,121 @@
+<template>
+  <view>
+    <van-sticky  >
+      <NavigationBar title="商城" :back="false" color="black" background="#FFF" />
+    </van-sticky>
+    <view class="shop">
+      <view class="shop__top-con">
+        <van-sticky :offset-top="90">
+          <view>
+            <LocationPicker @tap="bindMapTap" :show-icon="true" />
+            <view class="shop__top-search" ><van-search @search="onSearch" placeholder="请输入购买的商品"></van-search></view>
+          </view>
+        </van-sticky>
+        <view class="shop__banner">
+          <!-- <van-image width="100%" height="100" src="//innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png" /> -->
+          <u-image width="100%" height="100" src="http://innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png" />
+        </view>
+        <van-sticky :offset-top="180">
+          <view class="shop__tabs">
+            <van-tabs @change="onTabsChange" swipeable>
+              <van-tab title="霸王茶姬"></van-tab>
+              <van-tab title="汉堡王"></van-tab>
+              <van-tab title="星巴克"></van-tab>
+              <van-tab title="肯德基"></van-tab>
+              <van-tab title="肯德基2"></van-tab>
+              <van-tab title="肯德基3"></van-tab>
+            </van-tabs>
+            <image class="more" @tap="showPopup" src="/static/img/more.png" mode="aspectFill"></image>
+          </view>
+        </van-sticky>
+      </view>
+      
+      <van-popup v-model:show="show" position="top" @close="onClosePopup">
+        <view class="popup">
+          <view class="popup__head">商城</view>
+          <view class="popup__main">
+            <text class="title">商品类型</text>
+            <view class="tag">
+              <view 
+                :data-type="'non-right'" 
+                @tap="onTag" 
+                :class="['tag__item', { 'tag__item--checked': currTag === 'non-right' }]"
+              >
+                非权益商品
+              </view>
+              <view 
+                :data-type="'right'" 
+                @tap="onTag" 
+                :class="['tag__item', { 'tag__item--checked': currTag === 'right' }]"
+              >
+                权益商品
+              </view>
+            </view>
+            <view class="mt-20">
+              <text class="title">人均价筛选</text>
+            </view>
+            <view class="mt-20">
+              <van-slider v-model="price" @change="priceChange" active-color="#ee0a24" :min="0" :max="100" />
+            </view>
+            <view class="mt-20 goods-choose__btn">
+              <view class="btn btn-reset" @tap="onResetPopup">重置</view>
+              <view class="btn btn-comfirm" @tap="onSubmitPopup">完成</view>
+            </view>
+          </view>
+        </view>
+      </van-popup>
+      
+      <view class="shop__goodslist">
+        <view 
+          v-for="(item, index) in list" 
+          :key="item.id"
+          :data="56"
+          class="goodslist__box"
+          :data-index="index"
+        >
+          <view class="goodsimg">
+            <image mode="aspectFill" src="https://fdsimgtest.tcy365.com/ctrpashop/ct023116958-852f-4699-93af-b1626f8effbd.png" alt=""></image>
+          </view>
+          <view class="goodsname">
+            <view @tap="bindDetailTap">
+              <view class="goodsname__text">
+                <image mode="aspectFill" class="icon-special" src="/static/img/vip.png"></image>
+                <text class="name">{{ item.name }}</text>
+              </view>
+              <view class="goods-promotion">
+                <view class="promotion">
+                  <text>直降</text>
+                  <image mode="aspectFill" class="icon-promotion" src="/static/img/down.png"></image>
+                  <text>49.99元</text>
+                </view>
+              </view>
+            </view>
+            <view class="goodsprice goodsprice--rushorder-box">
+              <image mode="aspectFill" class="goodsprice--rushorder" src="/static/img/sprice-bg.png"></image>
+              <view class="goodsprice__text">
+                <view class="pricedata">
+                  <view class="saleprice">
+                    <text class="unit">¥</text>
+                    <text class="text">
+                      <text>0</text>
+                      <text class="decimal">.01 起</text>
+                    </text>
+                  </view>
+                  <text class="price">
+                    <text class="unit">¥</text>
+                    <text>50</text>
+                  </text>
+                </view>
+                <view class="success-rate">抢单成功率97.62%</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
@@ -104,323 +222,249 @@ onMounted(() => {
 });
 </script>
 
-<template>
-  <view>
-    <van-sticky>
-      <NavigationBar title="商城" :back="false" color="black" background="#FFF" />
-    </van-sticky>
-    <view class="shop">
-      <view class="shop__top-con">
-        <van-sticky :offset-top="90">
-          <view>
-            <LocationPicker @tap="bindMapTap" />
-            <view><van-search @search="onSearch" placeholder="请输入购买的商品"></van-search></view>
-          </view>
-        </van-sticky>
-        <view class="shop__banner">
-          <van-image width="100%" height="100" src="//innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png" />
-        </view>
-        <van-sticky :offset-top="180">
-          <view class="shop__tabs">
-            <van-tabs @change="onTabsChange" swipeable>
-              <van-tab title="霸王茶姬"></van-tab>
-              <van-tab title="汉堡王"></van-tab>
-              <van-tab title="星巴克"></van-tab>
-              <van-tab title="肯德基"></van-tab>
-              <van-tab title="肯德基2"></van-tab>
-              <van-tab title="肯德基3"></van-tab>
-            </van-tabs>
-            <!-- <image class="more" @tap="showPopup" src="./img/more.png" mode="aspectFill"></image> -->
-          </view>
-        </van-sticky>
-      </view>
-      
-      <van-popup v-model:show="show" position="top" @close="onClosePopup">
-        <view class="popup">
-          <view class="popup__head">商城</view>
-          <view class="popup__main">
-            <text class="title">商品类型</text>
-            <view class="tag">
-              <view 
-                :data-type="'non-right'" 
-                @tap="onTag" 
-                :class="['tag__item', { 'tag__item--checked': currTag === 'non-right' }]"
-              >
-                非权益商品
-              </view>
-              <view 
-                :data-type="'right'" 
-                @tap="onTag" 
-                :class="['tag__item', { 'tag__item--checked': currTag === 'right' }]"
-              >
-                权益商品
-              </view>
-            </view>
-            <view class="mt-20">
-              <text class="title">人均价筛选</text>
-            </view>
-            <view class="mt-20">
-              <van-slider v-model="price" @change="priceChange" active-color="#ee0a24" :min="0" :max="100" />
-            </view>
-            <view class="mt-20 goods-choose__btn">
-              <view class="btn btn-reset" @tap="onResetPopup">重置</view>
-              <view class="btn btn-comfirm" @tap="onSubmitPopup">完成</view>
-            </view>
-          </view>
-        </view>
-      </van-popup>
-      
-      <view class="shop__goodslist">
-        <view 
-          v-for="(item, index) in list" 
-          :key="item.id"
-          :data="56"
-          class="goodslist__box"
-          :data-index="index"
-        >
-          <view class="goodsimg">
-            <image mode="aspectFill" src="https://fdsimgtest.tcy365.com/ctrpashop/ct023116958-852f-4699-93af-b1626f8effbd.png" alt=""></image>
-          </view>
-          <view class="goodsname">
-            <view @tap="bindDetailTap">
-              <view class="goodsname__text">
-                <!-- <image mode="aspectFill" class="icon-special" src="./img/vip.png"></image> -->
-                <text class="name">{{ item.name }}</text>
-              </view>
-              <view class="goods-promotion">
-                <view class="promotion">
-                  <text>直降</text>
-                  <!-- <image mode="aspectFill" class="icon-promotion" src="./img/down.png"></image> -->
-                  <text>49.99元</text>
-                </view>
-              </view>
-            </view>
-            <view class="goodsprice goodsprice--rushorder-box">
-              <!-- <image mode="aspectFill" class="goodsprice--rushorder" src="./img/sprice-bg.png"></image> -->
-              <view class="goodsprice__text">
-                <view class="pricedata">
-                  <view class="saleprice">
-                    <text class="unit">¥</text>
-                    <text class="text">
-                      <text>0</text>
-                      <text class="decimal">.01 起</text>
-                    </text>
-                  </view>
-                  <text class="price">
-                    <text class="unit">¥</text>
-                    <text>50</text>
-                  </text>
-                </view>
-                <view class="success-rate">抢单成功率97.62%</view>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-</template>
-
-<style scoped>
-/* 样式需要从原scss文件转换 */
-.shop {
-  width: 100%;
-  min-height: 100vh;
-}
-
-.shop__top-con {
-  padding-bottom: 20rpx;
-}
-
-.shop__banner {
-  width: 100%;
-  height: 200rpx;
-}
-
-.shop__tabs {
-  position: relative;
-  background: #fff;
-  padding: 20rpx 0;
-}
-
-.shop__tabs .more {
-  position: absolute;
-  right: 20rpx;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24rpx;
-  height: 24rpx;
-}
-
-.popup {
-  background: #fff;
-  padding: 30rpx;
-}
-
-.popup__head {
-  font-size: 36rpx;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30rpx;
-}
-
-.title {
-  font-size: 28rpx;
-  color: #333;
-}
-
-.tag {
-  display: flex;
-  margin-top: 20rpx;
-}
-
-.tag__item {
-  padding: 10rpx 30rpx;
-  border: 1px solid #ddd;
-  border-radius: 30rpx;
-  margin-right: 20rpx;
-  font-size: 24rpx;
-}
-
-.tag__item--checked {
-  color: #e94359;
-  border-color: #e94359;
-}
-
-.mt-20 {
-  margin-top: 20rpx;
-}
-
-.goods-choose__btn {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 40rpx;
-}
-
-.btn {
-  padding: 20rpx 60rpx;
-  border-radius: 40rpx;
-  font-size: 28rpx;
-}
-
-.btn-reset {
-  background: #f5f5f5;
-  color: #666;
-}
-
-.btn-comfirm {
-  background: #e94359;
-  color: #fff;
-}
-
-.shop__goodslist {
-  padding: 20rpx;
-}
-
-.goodslist__box {
-  background: #fff;
-  border-radius: 20rpx;
-  overflow: hidden;
-  margin-bottom: 20rpx;
-}
-
-.goodsimg {
-  width: 100%;
-  height: 400rpx;
-}
-
-.goodsimg image {
-  width: 100%;
-  height: 100%;
-}
-
-.goodsname {
-  padding: 20rpx;
-}
-
-.goodsname__text {
-  display: flex;
-  align-items: center;
-}
-
-.icon-special {
-  width: 32rpx;
-  height: 32rpx;
-  margin-right: 10rpx;
-}
-
-.name {
-  flex: 1;
-  font-size: 28rpx;
-  color: #333;
-}
-
-.goods-promotion {
-  margin-top: 10rpx;
-}
-
-.promotion {
-  display: flex;
-  align-items: center;
-}
-
-.promotion text {
-  font-size: 20rpx;
-  color: #e94359;
-  margin-right: 10rpx;
-}
-
-.icon-promotion {
-  width: 20rpx;
-  height: 20rpx;
-  margin-right: 5rpx;
-}
-
-.goodsprice {
-  margin-top: 20rpx;
-  position: relative;
-}
-
-.goodsprice--rushorder {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 120rpx;
-  height: 60rpx;
-  z-index: 1;
-}
-
-.goodsprice__text {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pricedata {
-  display: flex;
-  align-items: baseline;
-}
-
-.saleprice {
-  color: #e94359;
-  font-size: 32rpx;
-  font-weight: bold;
-}
-
-.price {
-  color: #999;
-  font-size: 24rpx;
-  margin-left: 20rpx;
-  text-decoration: line-through;
-}
-
-.decimal {
-  font-size: 24rpx;
-  font-weight: normal;
-}
-
-.success-rate {
-  font-size: 20rpx;
-  color: #666;
-}
+<style lang="scss" scoped>
+	.shop{
+		marign-top:90rpx;
+	  background: #f5f5f5;
+	  height: 100vh;
+	  .popup{
+	    background: #fff;
+	    &__head{
+	      font-size: 17px;
+	      font-weight: bold;
+	      height: 44px;
+	      line-height: 44px;
+	      text-align: center;
+	    }
+	    &__main{
+	      padding: 0 22rpx;
+	      .title {
+	          font-size: 26rpx;
+	          color: #000;
+	          font-weight: 500;
+	      }
+	      .tag {
+	          margin-top: 4rpx;
+	          overflow: hidden;
+	      }
+	      .mt-20{
+	        margin-top: 22rpx;
+	      }
+	      .tag__item {
+	        border-radius: 4rpx;
+	        display: inline-flex;
+	        align-items: center;
+	        padding: 18rpx 32rpx;
+	        box-sizing: border-box;
+	        font-size: 24rpx;
+	        color: #67686f;
+	        border: 1px solid #f8f8f9;
+	        background-color: #f8f8f9;
+	        margin-right: 16rpx;
+	        margin-top: 16rpx;
+	      }
+	      .tag__item--checked {
+	        border: 1px solid #e94359;
+	        background-color: #fef9f7;
+	      }
+	      
+	      .goods-choose__btn{
+	        padding: 20rpx 0;
+	        box-sizing: border-box;
+	        display: flex;
+	        justify-content: space-between;
+	        .btn {
+	          display: flex;
+	          justify-content: center;
+	          align-items: center;
+	          height: 80rpx;
+	          border-radius: 16rpx;
+	          font-size: 30rpx;
+	          flex: 1;
+	          text-align: center;
+	          margin-right: 16rpx;
+	        }
+	        .btn-reset {
+	          background: #f8f8f9;
+	          color: #8b8c90;
+	        }
+	        .btn-comfirm {
+	          background: #ff6759;
+	          color: #fff;
+	        }
+	      }
+	    }
+	  }
+	  &__top-con{
+		overflow: hidden;
+		overflow: auto;
+	    background: #fff;
+	  }
+	  &__top-search{
+		  margin-top:-2px;
+	  }
+	  .van-cell:after{
+	    border: 0;
+	  }
+	  &__banner{
+	    padding:90rpx  22rpx 0;
+	  }
+	  &__tabs{
+	    padding: 20rpx 92rpx 0 22rpx;
+	    height: 72rpx;
+	    overflow: hidden;
+	    position: relative;
+	    background-color: #fff;
+	     .more{position: absolute; width:40rpx; height:40rpx; right: 22rpx; top:40rpx;}
+	     .van-tab {
+	      border-right: none;
+	      background-color: #f3f3f3;
+	      min-width: 160rpx;
+	      height: 25rpx;
+	      line-height: 72rpx;
+	      border-radius: 5px;
+	      font-size: 22rpx;
+	      color: #787878;
+	      transition: all .15s ease;
+	      margin-right: 6px;
+	    }
+	    .van-tab--active{
+	      background-color: #ff6759;
+	      color: #fff;
+	    }
+	    .van-tabs__line{
+	      display: none;
+	    }
+	  }
+	  &__goodslist{
+	    padding: 16rpx 22rpx 180rpx;
+	    box-sizing: border-box;
+	    .goodslist__box{
+	      border-radius: 20rpx;
+	      position: relative;
+	      box-sizing: border-box;
+	      overflow: hidden;
+	      text-align: left;
+	      width: 100%;
+	      margin-bottom: 16rpx;
+	      background-color: #fff;
+	      padding: 18rpx;
+	      display: flex;
+	      wx-image,.goodsimg {
+	          width: 240rpx;
+	          height: 240rpx;
+	          flex-shrink: 0;
+	          border-radius: 8rpx;
+	          overflow: hidden
+	      }
+	      .goodsname {
+	          padding: 0 0 0 24rpx;
+	          box-sizing: border-box;
+	          display: flex;
+	          flex-direction: column;
+	          justify-content: space-between
+	      }
+	
+	
+	      .goodsname__text {
+	          font-size: 0;
+	          font-size: 28rpx;
+	          color: #141414;
+	          display: -webkit-box;
+	          overflow: hidden;
+	          text-overflow: ellipsis;
+	          word-break: break-all;
+	          -webkit-box-orient: vertical;
+	          -webkit-line-clamp: 2;
+	          span {
+	              display: inline-block;
+	              vertical-align: middle;
+	          }
+	          wx-image,.icon-special {
+	            margin-right: 5px;
+	            display: inline-block;
+	            flex: 1;
+	            width: 92rpx;
+	            height: 28rpx;
+	        }
+	      }
+	      .promotion {
+	        padding: 0 4rpx;
+	        box-sizing: border-box;
+	        height: 30rpx;
+	        display: inline-flex;
+	        align-items: center;
+	        background: linear-gradient(0deg,#ff4c3b,#ff6759);
+	        border-radius: 2rpx;
+	        font-size: 22rpx;
+	        color: #fff;
+	        .icon-promotion {
+	          margin-right: 2rpx;
+	          display: inline-block;
+	          width: 30rpx;
+	          height: 30rpx;
+	          background-image: url("/static/img/down.png");
+	          background-repeat: no-repeat;
+	          background-size: 100% 100%
+	      }
+	      }
+	      .goodsname .goodsprice {
+	          margin-top: 5px;
+	          padding-bottom: 0;
+	          .unit {
+	            margin-right: 2px
+	        }
+	      }
+	
+	      .goodsprice--rushorder-box{
+	        width: 390rpx;
+	        height: 82rpx;
+	        position: relative;
+	      }
+	      .goodsprice--rushorder{
+	        width: 390rpx;
+	        height: 82rpx;
+	        position: absolute;
+	        left: 0;
+	        right: 0;
+	      }
+	      .pricedata{
+	        display: flex;
+	        align-items: flex-end;
+	      }
+	      .goodsprice__text{
+	        position: absolute;
+	        left: 0;
+	        right: 0;
+	        .saleprice {
+	            margin-right: 6rpx;
+	            font-size: 36rpx;
+	            color: #f22;
+	            .unit {
+	              font-size: 26rpx;
+	              margin-bottom: -40rpx;
+	              font-weight: 700;
+	          }
+	          .text {
+	              font-weight: 700;
+	          }
+	          .decimal {
+	            font-size: 26rpx;
+	          }
+	        }
+	        .price {
+	          margin-right: 4rpx;
+	          text-decoration: line-through;
+	          font-size: 24rpx;
+	          color: #858585;
+	        }
+	        .success-rate {
+	          font-size: 22rpx;
+	          color: #f22
+	      }
+	      }
+	    }
+	  }
+	}
 </style>
+

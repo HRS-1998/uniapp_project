@@ -18,7 +18,10 @@
         "autoAudits": false,
         "urlCheck": false
     },
-    "preview": {
-        "packageId": 1757740
+    "swan": {
+        "baiduboxapp": {
+            "swanJsVersion": "3.970.2",
+            "extensionJsVersion": "1.21.2"
+        }
     }
 }

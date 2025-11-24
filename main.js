@@ -11,6 +11,7 @@ import App from './App'
 // app.$mount()
 // #endif
 
+import uviewPlus from './uni_modules/uview-plus'
 // #ifdef VUE3
 import {
 	createSSRApp
@@ -18,9 +19,10 @@ import {
 import * as Pinia from 'pinia';
 export function createApp() {
 	const app = createSSRApp(App)
+	app.use(uviewPlus);
+	app.use(Pinia.createPinia())
 	return {
 		app,
-		Pinia
 	}
 }
 // #endif

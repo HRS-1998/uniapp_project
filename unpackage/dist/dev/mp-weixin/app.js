@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 const common_vendor = require("./common/vendor.js");
+const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js");
 if (!Math) {
   "./pages/index/index.js";
   "./pages/my/my.js";
-  "./packageA/pages/goodsdetail/goodsdetail.js";
-  "./packageB/pages/about/about.js";
-  "./packageB/pages/about/privacypolicy.js";
+  "./indexpackage/pages/goodsdetail/goodsdetail.js";
+  "./mypackage/pages/about/about.js";
+  "./mypackage/pages/about/privacypolicy.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -21,9 +22,10 @@ const _sfc_main = {
 };
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
+  app.use(uni_modules_uviewPlus_index.uviewPlus);
+  app.use(common_vendor.createPinia());
   return {
-    app,
-    Pinia: common_vendor.Pinia
+    app
   };
 }
 createApp().app.mount("#app");
