@@ -1,109 +1,110 @@
 {
-	"pages": [{
-			"path": "pages/index/index",
-			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTextStyle": "black"
-			}
-		},
-		{
-			"path": "pages/my/my",
-			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTextStyle": "black"
-			}
-		}
-	],
-	"subPackages": [{
-			"root": "indexpackage",
-			"pages": [{
-				"path": "pages/goodsdetail/goodsdetail",
-				"style": {
-					"navigationStyle": "custom",
-					"navigationBarTextStyle": "black"
-				}
-			}]
-		},
-		{
-			"root": "mypackage",
-			"pages": [{
-					"path": "pages/about/about",
-					"style": {
-						"navigationStyle": "custom",
-						"navigationBarTextStyle": "black"
-					}
-				},
-				{
-					"path": "pages/about/privacypolicy",
-					"style": {
-						"navigationStyle": "custom",
-						"navigationBarTextStyle": "black"
-					}
-				}
-			]
-		}
-	],
-	"preloadRule": {
-		"pages/index/index": {
-			"network": "all",
-			"packages": ["indexpackage"]
-		},
-		"pages/my/my": {
-			"packages": ["mypackage"]
-		}
-	},
-	"tabBar": {
-		"color": "#999999",
-		"selectedColor": "#e94359",
-		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "商城",
-				"iconPath": "static/icons/tab1.png",
-				"selectedIconPath": "static/icons/tab1_active.png"
-			},
-			{
-				"pagePath": "pages/my/my",
-				"text": "我的",
-				"iconPath": "static/icons/tab2.png",
-				"selectedIconPath": "static/icons/tab2_active.png"
-			}
-		]
-	},
-	"lazyCodeLoading": "requiredComponents",
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationStyle": "custom",
-		"backgroundColor": "#ffffff",
-		// #ifdef  MP-BAIDU
-		"usingComponents": {
-			"u-image": "/uni_modules/uview-plus/components/u-image/u-image"
-			// "van-image": "/wxcomponents/vant2/image/index",
-			// "van-tabbar": "/wxcomponents/vant2/tabbar/index",
-			// "van-tabbar-item": "/wxcomponents/vant2/tabbar-item/index",
-			// "van-icon": "/wxcomponents/vant2/icon/index",
-			// "van-search": "/wxcomponents/vant2/search/index",
-			// "van-button": "/wxcomponents/vant2/button/index",
-			// "van-cell": "/wxcomponents/vant2/cell/index",
-			// "van-sticky": "/wxcomponents/vant2/sticky/index",
-			// "van-tabs": "/wxcomponents/vant2/tabs/index",
-			// "van-tab": "/wxcomponents/vant2/tab/index",
-			// "van-popup": "/wxcomponents/vant2/popup/index",
-			// "van-slider": "/wxcomponents/vant2/slider/index"
-		},
-		// #endif 
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/my/my",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "black"
+      }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "indexpackage",
+      "pages": [
+        {
+          "path": "pages/goodsdetail/goodsdetail",
+          "style": {
+            "navigationStyle": "custom",
+            "navigationBarTextStyle": "black"
+          }
+        }
+      ]
+    },
+    {
+      "root": "mypackage",
+      "pages": [
+        {
+          "path": "pages/about/about",
+          "style": {
+            "navigationStyle": "custom",
+            "navigationBarTextStyle": "black"
+          }
+        },
+        {
+          "path": "pages/about/privacypolicy",
+          "style": {
+            "navigationStyle": "custom",
+            "navigationBarTextStyle": "black"
+          }
+        }
+      ]
+    }
+  ],
+  "preloadRule": {
+    "pages/index/index": {
+      "network": "all",
+      "packages": ["indexpackage"]
+    },
+    "pages/my/my": {
+      "packages": ["mypackage"]
+    }
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#e94359",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "商城",
+        "iconPath": "static/icons/tab1.png",
+        "selectedIconPath": "static/icons/tab1_active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/icons/tab2.png",
+        "selectedIconPath": "static/icons/tab2_active.png"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "backgroundColor": "#fff"
+    //	// #ifdef  MP-BAIDU
+    // "usingComponents": {
+    // "van-image": "/wxcomponents/vant2/image/index",
+    // "van-tabbar": "/wxcomponents/vant2/tabbar/index",
+    // "van-tabbar-item": "/wxcomponents/vant2/tabbar-item/index",
+    // "van-icon": "/wxcomponents/vant2/icon/index",
+    // "van-search": "/wxcomponents/vant2/search/index",
+    // "van-button": "/wxcomponents/vant2/button/index",
+    // "van-cell": "/wxcomponents/vant2/cell/index",
+    // "van-sticky": "/wxcomponents/vant2/sticky/index",
+    // "van-tabs": "/wxcomponents/vant2/tabs/index",
+    // "van-tab": "/wxcomponents/vant2/tab/index",
+    // "van-popup": "/wxcomponents/vant2/popup/index",
+    // "van-slider": "/wxcomponents/vant2/slider/index"
+    // },
+  },
+  //	// #endif
 
-		// #ifdef MP-WEIXIN
-		"easycom": {
-				"autoscan": true,
-				"custom": {
-					"^u--(.*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue",
-					"^up-(.*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue",
-			        "^u-([^-].*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue"
-				}
-			}
-		//#endif 
-	}
-}
-
-
+  //	 // #ifdef MP-WEIXIN
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^up-(.*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue",
+      "^u-([^-].*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue"
+    }
+  }
+  //	// #endif
 }

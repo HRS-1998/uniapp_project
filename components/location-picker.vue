@@ -1,12 +1,19 @@
 
 <template>
   <view class="location-picker" @tap="chooseLocation">
-    <van-cell :disabled="disabled">
+    <u-cell :disabled="disabled">
       <template #title>
         <view class="location-content">
-          <van-icon 
+       <!--   <van-icon 
             v-if="showIcon !== false" 
             name="location-o" 
+            size="32rpx" 
+            color="#e94359" 
+            class="location-icon"
+          /> -->
+		  <u-icon 
+            v-if="showIcon !== false" 
+            name="map" 
             size="32rpx" 
             color="#e94359" 
             class="location-icon"
@@ -16,11 +23,12 @@
       </template>
       <template #right-icon>
         <view v-if="isLoading" class="loading-icon">
-          <van-loading type="spinner" size="20rpx" color="#999" />
+          <u-loading type="spinner" size="20rpx" color="#999" />
         </view>
-        <van-icon v-else name="arrow" size="28rpx" color="#999" />
+        <!-- <van-icon v-else name="arrow" size="28rpx" color="#999" /> -->
+        <u-icon v-else name="arrow-right" size="28rpx" color="#999" />
       </template>
-    </van-cell>
+    </u-cell>
   </view>
 </template>
 

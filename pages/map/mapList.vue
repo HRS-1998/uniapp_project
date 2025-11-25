@@ -56,7 +56,7 @@ const navigateToMap = () => {
         @tap="selectLocation(item)"
       >
         <view class="location-icon">
-          <van-icon name="location-o" size="40rpx" color="#e94359"></van-icon>
+          <u-icon name="location-o" size="40rpx" color="#e94359"></u-icon>
         </view>
         <view class="location-info">
           <view class="location-name">{{ item.name }}</view>

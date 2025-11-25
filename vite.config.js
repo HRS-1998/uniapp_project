@@ -15,12 +15,12 @@ export default defineConfig({
 	  },  
 	},  
   },
-  server: {
+//   server: {
 	  
-    // port: 1507,
-    // fs: {
-    //     // Allow serving files from one level up to the project root
-    //     allow: ['..']
-    // }
-},
+//     // port: 1507,
+//     // fs: {
+//     //     // Allow serving files from one level up to the project root
+//     //     allow: ['..']
+//     // }
+// },
 });

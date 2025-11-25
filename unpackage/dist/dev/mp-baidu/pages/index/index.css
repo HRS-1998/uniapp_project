@@ -24,7 +24,6 @@
 /* 透明度 */
 /* 文章场景相关 */
 .shop.data-v-1cf27b2a {
-  marign-top: 90rpx;
   background: #f5f5f5;
   height: 100vh;
 }
@@ -101,46 +100,41 @@
   background: #fff;
 }
 .shop__top-search.data-v-1cf27b2a {
-  margin-top: -2px;
+  margin-top: 2px;
+  padding: 0 20rpx;
+  box-sizing: border-box;
 }
-.shop .van-cell.data-v-1cf27b2a:after {
+.shop .u-cell.data-v-1cf27b2a:after {
   border: 0;
 }
 .shop__banner.data-v-1cf27b2a {
-  padding: 90rpx 22rpx 0;
+  padding: 70rpx 22rpx 0;
 }
 .shop__tabs.data-v-1cf27b2a {
-  padding: 20rpx 92rpx 0 22rpx;
-  height: 72rpx;
-  overflow: hidden;
   position: relative;
-  background-color: #fff;
+  padding: 20rpx 92rpx 0 22rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  display: flex;
+  align-items: center;
+  transition-duration: 0;
+}
+.shop__tabs.data-v-1cf27b2a .u-subsection {
+  width: 683rpx;
+  overflow-x: auto;
+}
+.shop__tabs.data-v-1cf27b2a .u-subsection .u-subsection__item {
+  min-width: 160rpx;
+  transition-duration: 0;
 }
 .shop__tabs .more.data-v-1cf27b2a {
   position: absolute;
   width: 40rpx;
   height: 40rpx;
+  top: calc(50% + 20rpx);
   right: 22rpx;
-  top: 40rpx;
-}
-.shop__tabs .van-tab.data-v-1cf27b2a {
-  border-right: none;
-  background-color: #f3f3f3;
-  min-width: 160rpx;
-  height: 25rpx;
-  line-height: 72rpx;
-  border-radius: 5px;
-  font-size: 22rpx;
-  color: #787878;
-  transition: all 0.15s ease;
-  margin-right: 6px;
-}
-.shop__tabs .van-tab--active.data-v-1cf27b2a {
-  background-color: #ff6759;
-  color: #fff;
-}
-.shop__tabs .van-tabs__line.data-v-1cf27b2a {
-  display: none;
+  transform: translateY(-50%);
 }
 .shop__goodslist.data-v-1cf27b2a {
   padding: 16rpx 22rpx 180rpx;
@@ -158,7 +152,8 @@
   padding: 18rpx;
   display: flex;
 }
-.shop__goodslist .goodslist__box wx-image.data-v-1cf27b2a, .shop__goodslist .goodslist__box .goodsimg.data-v-1cf27b2a {
+.shop__goodslist .goodslist__box wx-image.data-v-1cf27b2a,
+.shop__goodslist .goodslist__box .goodsimg.data-v-1cf27b2a {
   width: 240rpx;
   height: 240rpx;
   flex-shrink: 0;
@@ -187,7 +182,8 @@
   display: inline-block;
   vertical-align: middle;
 }
-.shop__goodslist .goodslist__box .goodsname__text wx-image.data-v-1cf27b2a, .shop__goodslist .goodslist__box .goodsname__text .icon-special.data-v-1cf27b2a {
+.shop__goodslist .goodslist__box .goodsname__text wx-image.data-v-1cf27b2a,
+.shop__goodslist .goodslist__box .goodsname__text .icon-special.data-v-1cf27b2a {
   margin-right: 5px;
   display: inline-block;
   flex: 1;

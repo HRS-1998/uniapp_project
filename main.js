@@ -19,7 +19,16 @@ import {
 import * as Pinia from 'pinia';
 export function createApp() {
 	const app = createSSRApp(App)
-	app.use(uviewPlus);
+	app.use(uviewPlus, () => {
+		return {
+			options: {
+				config: {
+					// 只加载一次字体图标
+					loadFontOnce: true
+				}
+			}
+		}
+	});
 	app.use(Pinia.createPinia())
 	return {
 		app,

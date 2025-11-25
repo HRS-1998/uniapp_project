@@ -88,10 +88,10 @@ onMounted(() => {
     
     <view class="map-controls">
       <view class="control-item" @tap="getLocation">
-        <van-icon name="location-o" size="40rpx"></van-icon>
+        <u-icon name="location-o" size="40rpx"></u-icon>
       </view>
       <view class="control-item" @tap="uni.navigateTo({ url: '/pages/map/mapList' })">
-        <van-icon name="list" size="40rpx"></van-icon>
+        <u-icon name="list" size="40rpx"></u-icon>
       </view>
     </view>
   </view>

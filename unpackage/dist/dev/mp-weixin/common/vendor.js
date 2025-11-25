@@ -7079,7 +7079,7 @@ function isConsoleWritable() {
 function initRuntimeSocketService() {
   const hosts = "172.16.40.91,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_6wyoS5";
+  const id = "mp-weixin_ObDcwS";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8120,32 +8120,6 @@ function createPinia() {
   }
   return pinia;
 }
-/*!
-  * vue-router v4.4.4
-  * (c) 2024 Eduardo San Martin Morote
-  * @license MIT
-  */
-var NavigationType;
-(function(NavigationType2) {
-  NavigationType2["pop"] = "pop";
-  NavigationType2["push"] = "push";
-})(NavigationType || (NavigationType = {}));
-var NavigationDirection;
-(function(NavigationDirection2) {
-  NavigationDirection2["back"] = "back";
-  NavigationDirection2["forward"] = "forward";
-  NavigationDirection2["unknown"] = "";
-})(NavigationDirection || (NavigationDirection = {}));
-var NavigationFailureType;
-(function(NavigationFailureType2) {
-  NavigationFailureType2[NavigationFailureType2["aborted"] = 4] = "aborted";
-  NavigationFailureType2[NavigationFailureType2["cancelled"] = 8] = "cancelled";
-  NavigationFailureType2[NavigationFailureType2["duplicated"] = 16] = "duplicated";
-})(NavigationFailureType || (NavigationFailureType = {}));
-const routerKey = Symbol("router");
-function useRouter() {
-  return inject(routerKey);
-}
 exports._export_sfc = _export_sfc;
 exports.computed = computed;
 exports.createPinia = createPinia;
@@ -8164,5 +8138,4 @@ exports.ref = ref;
 exports.resolveComponent = resolveComponent;
 exports.s = s;
 exports.t = t;
-exports.useRouter = useRouter;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

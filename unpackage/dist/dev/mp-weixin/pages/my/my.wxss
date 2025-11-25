@@ -50,7 +50,7 @@
   display: flex;
   align-items: center;
 }
-.menu-left .van-icon.data-v-2f1ef635 {
+.menu-left .u-icon.data-v-2f1ef635 {
   margin-right: 20rpx;
   color: #666;
 }

@@ -10,18 +10,15 @@
             "quickPreview": true
         },
         "selected": -2,
-        "forceChanged": {}
+        "forceChanged": {
+            "quickPreview": true,
+            "originMode": "optiAmd"
+        }
     },
     "host": "baiduboxapp",
     "projectname": "minprogram_share",
     "setting": {
         "autoAudits": false,
         "urlCheck": false
-    },
-    "swan": {
-        "baiduboxapp": {
-            "swanJsVersion": "3.970.2",
-            "extensionJsVersion": "1.21.2"
-        }
     }
 }

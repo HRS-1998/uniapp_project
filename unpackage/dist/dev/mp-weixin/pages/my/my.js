@@ -1,12 +1,14 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 if (!Array) {
-  const _component_van_sticky = common_vendor.resolveComponent("van-sticky");
-  const _component_van_icon = common_vendor.resolveComponent("van-icon");
-  (_component_van_sticky + _component_van_icon)();
+  const _easycom_u_sticky2 = common_vendor.resolveComponent("u-sticky");
+  const _easycom_u_icon2 = common_vendor.resolveComponent("u-icon");
+  (_easycom_u_sticky2 + _easycom_u_icon2)();
 }
+const _easycom_u_sticky = () => "../../uni_modules/uview-plus/components/u-sticky/u-sticky.js";
+const _easycom_u_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
 if (!Math) {
-  NavigationBar();
+  (NavigationBar + _easycom_u_sticky + _easycom_u_icon)();
 }
 const NavigationBar = () => "../../components/navigation-bar.js";
 const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({

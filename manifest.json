@@ -61,10 +61,10 @@
         "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ],
         "permission" : {
             "scope.userLocation" : {
-                "desc" : ""
+                "desc" : "测试使用"
             }
         },
-		"mergeVirtualHostAttributes" : true
+        "mergeVirtualHostAttributes" : true
     },
     "mp-alipay" : {
         "usingComponents" : true
@@ -76,7 +76,7 @@
             "urlCheck" : false
         },
         "requiredPrivateInfos" : [ "getLocation", "chooseLocation" ],
-		"mergeVirtualHostAttributes" : true
+        "mergeVirtualHostAttributes" : true
     },
     "mp-toutiao" : {
         "usingComponents" : true

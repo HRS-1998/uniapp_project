@@ -1,4 +1,7 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "u-icon": "../uni_modules/uview-plus/components/u-icon/u-icon",
+    "u-cell": "../uni_modules/uview-plus/components/u-cell/u-cell"
+  }
 }

@@ -22,7 +22,16 @@ const _sfc_main = {
 };
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
-  app.use(uni_modules_uviewPlus_index.uviewPlus);
+  app.use(uni_modules_uviewPlus_index.uviewPlus, () => {
+    return {
+      options: {
+        config: {
+          // 只加载一次字体图标
+          loadFontOnce: true
+        }
+      }
+    };
+  });
   app.use(common_vendor.createPinia());
   return {
     app

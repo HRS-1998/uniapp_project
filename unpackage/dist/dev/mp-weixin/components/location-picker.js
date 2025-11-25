@@ -1,10 +1,15 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
 if (!Array) {
-  const _component_van_icon = common_vendor.resolveComponent("van-icon");
-  const _component_van_loading = common_vendor.resolveComponent("van-loading");
-  const _component_van_cell = common_vendor.resolveComponent("van-cell");
-  (_component_van_icon + _component_van_loading + _component_van_cell)();
+  const _easycom_u_icon2 = common_vendor.resolveComponent("u-icon");
+  const _component_u_loading = common_vendor.resolveComponent("u-loading");
+  const _easycom_u_cell2 = common_vendor.resolveComponent("u-cell");
+  (_easycom_u_icon2 + _component_u_loading + _easycom_u_cell2)();
+}
+const _easycom_u_icon = () => "../uni_modules/uview-plus/components/u-icon/u-icon.js";
+const _easycom_u_cell = () => "../uni_modules/uview-plus/components/u-cell/u-cell.js";
+if (!Math) {
+  (_easycom_u_icon + _easycom_u_cell)();
 }
 const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   __name: "location-picker",
@@ -47,7 +52,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
               },
               success: (geoRes) => {
                 let address = "";
-                common_vendor.index.__f__("log", "at components/location-picker.vue:74", geoRes);
+                common_vendor.index.__f__("log", "at components/location-picker.vue:82", geoRes);
                 if (geoRes.data && geoRes.data.regeocode) {
                   address = geoRes.data.regeocode.formatted_address || geoRes.data.regeocode.addressComponent.province;
                 } else {
@@ -69,7 +74,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
             });
           },
           fail: (err) => {
-            common_vendor.index.__f__("error", "at components/location-picker.vue:101", "获取位置信息失败", err);
+            common_vendor.index.__f__("error", "at components/location-picker.vue:109", "获取位置信息失败", err);
             currentAddress.value = props.placeholder || "选择位置";
             common_vendor.index.showToast({
               title: "获取位置失败",
@@ -79,7 +84,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           }
         });
       } catch (error) {
-        common_vendor.index.__f__("error", "at components/location-picker.vue:111", "获取位置信息失败", error);
+        common_vendor.index.__f__("error", "at components/location-picker.vue:119", "获取位置信息失败", error);
         currentAddress.value = props.placeholder || "选择位置";
         common_vendor.index.showToast({
           title: "获取位置失败",
@@ -101,7 +106,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           emit("change", res.name || res.address, location.value);
         },
         fail: (err) => {
-          common_vendor.index.__f__("error", "at components/location-picker.vue:135", "选择位置失败", err);
+          common_vendor.index.__f__("error", "at components/location-picker.vue:143", "选择位置失败", err);
           if (err.errMsg && (err.errMsg.includes("fail auth deny") || err.errMsg.includes("fail authorize"))) {
             common_vendor.index.showModal({
               title: "权限拒绝",
@@ -137,7 +142,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         a: _ctx.showIcon !== false
       }, _ctx.showIcon !== false ? {
         b: common_vendor.p({
-          name: "location-o",
+          name: "map",
           size: "32rpx",
           color: "#e94359"
         })
@@ -152,7 +157,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         })
       } : {
         f: common_vendor.p({
-          name: "arrow",
+          name: "arrow-right",
           size: "28rpx",
           color: "#999"
         })

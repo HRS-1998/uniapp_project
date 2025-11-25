@@ -58,9 +58,9 @@ const handleLogin = () => {
 
 <template>
   <view>
-    <van-sticky>
+    <u-sticky>
       <NavigationBar title="我的" :back="false" color="black" background="#FFF" />
-    </van-sticky>
+    </u-sticky>
     
     <view class="my-container">
       <!-- 用户信息区域 -->
@@ -81,10 +81,10 @@ const handleLogin = () => {
           @tap="navigateToPage(item.url)"
         >
           <view class="menu-left">
-            <van-icon :name="item.icon" size="36rpx"></van-icon>
+            <u-icon :name="item.icon" size="36rpx"></u-icon>
             <text class="menu-title">{{ item.title }}</text>
           </view>
-          <van-icon name="arrow" size="28rpx"></van-icon>
+          <u-icon name="arrow" size="28rpx"></u-icon>
         </view>
       </view>
     </view>
@@ -153,7 +153,7 @@ const handleLogin = () => {
   align-items: center;
 }
 
-.menu-left .van-icon {
+.menu-left .u-icon {
   margin-right: 20rpx;
   color: #666;
 }

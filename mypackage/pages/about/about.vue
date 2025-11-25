@@ -38,7 +38,7 @@ const handleFeedback = () => {
       <!-- 应用Logo -->
       <view class="logo-section">
         <view class="logo">
-          <van-icon name="star-o" size="120rpx" color="#1989fa"></van-icon>
+          <u-icon name="star-o" size="120rpx" color="#1989fa"></u-icon>
         </view>
         <view class="app-name">{{ appInfo.name }}</view>
         <view class="app-version">版本 {{ appInfo.version }}</view>
@@ -48,40 +48,40 @@ const handleFeedback = () => {
       <view class="menu-section">
         <view class="menu-item" @tap="handleFeedback">
           <view class="menu-left">
-            <van-icon name="chat-o" size="36rpx" color="#666"></van-icon>
+            <u-icon name="chat-o" size="36rpx" color="#666"></u-icon>
             <text class="menu-title">意见反馈</text>
           </view>
           <view class="menu-right">
             <text class="menu-desc">帮助我们改进</text>
-            <van-icon name="arrow" size="28rpx" color="#999"></van-icon>
+            <u-icon name="arrow" size="28rpx" color="#999"></u-icon>
           </view>
         </view>
         
         <view class="menu-item" @tap="handleContact">
           <view class="menu-left">
-            <van-icon name="phone-o" size="36rpx" color="#666"></van-icon>
+            <u-icon name="phone-o" size="36rpx" color="#666"></u-icon>
             <text class="menu-title">联系我们</text>
           </view>
           <view class="menu-right">
             <text class="menu-desc">400-123-4567</text>
-            <van-icon name="arrow" size="28rpx" color="#999"></van-icon>
+            <u-icon name="arrow" size="28rpx" color="#999"></u-icon>
           </view>
         </view>
         
         <view class="menu-item" @tap="uni.navigateTo({ url: '/packageB/pages/about/privacypolicy' })">
           <view class="menu-left">
-            <van-icon name="shield-o" size="36rpx" color="#666"></van-icon>
+            <u-icon name="shield-o" size="36rpx" color="#666"></u-icon>
             <text class="menu-title">隐私政策</text>
           </view>
-          <van-icon name="arrow" size="28rpx" color="#999"></van-icon>
+          <u-icon name="arrow" size="28rpx" color="#999"></u-icon>
         </view>
         
         <view class="menu-item" @tap="uni.navigateTo({ url: '/packageB/pages/about/useragreement' })">
           <view class="menu-left">
-            <van-icon name="document-o" size="36rpx" color="#666"></van-icon>
+            <u-icon name="document-o" size="36rpx" color="#666"></u-icon>
             <text class="menu-title">用户协议</text>
           </view>
-          <van-icon name="arrow" size="28rpx" color="#999"></van-icon>
+          <u-icon name="arrow" size="28rpx" color="#999"></u-icon>
         </view>
       </view>
       
@@ -163,7 +163,7 @@ const handleFeedback = () => {
   align-items: center;
 }
 
-.menu-left .van-icon {
+.menu-left .u-icon {
   margin-right: 20rpx;
 }
 

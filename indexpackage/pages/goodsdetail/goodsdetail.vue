@@ -76,24 +76,24 @@ onMounted(() => {
   <view class="goods-detail-container">
     <NavigationBar title="商品详情" :back="true" color="black" background="#FFF" />
     
-    <van-sticky>
+    <u-sticky>
       <view class="nav-tabs">
         <view class="tab-item active">商品详情</view>
         <view class="tab-item">规格参数</view>
         <view class="tab-item">用户评价</view>
       </view>
-    </van-sticky>
+    </u-sticky>
     
-    <van-loading v-if="loading" type="spinner" color="#1989fa" />
+    <u-loading v-if="loading" type="spinner" color="#1989fa" />
     
     <view v-else class="goods-content">
       <!-- 商品轮播图 -->
       <view class="goods-image">
-        <!-- <van-swipe class="my-swipe" :autoplay="3000" indicator-dots>
-          <van-swipe-item>
+        <!-- <u-swipe class="my-swipe" :autoplay="3000" indicator-dots>
+          <u-swipe-item>
             <image :src="goodsInfo.image" mode="aspectFill"></image>
-          </van-swipe-item>
-        </van-swipe> -->
+          </u-swipe-item>
+        </u-swipe> -->
       </view>
       
       <!-- 商品信息 -->
@@ -120,7 +120,7 @@ onMounted(() => {
     <!-- 底部操作栏 -->
     <view class="bottom-bar">
       <view class="cart-btn" @tap="addToCart">
-        <van-icon name="cart-o" size="48rpx" color="#666"></van-icon>
+        <u-icon name="cart-o" size="48rpx" color="#666"></u-icon>
         <text class="btn-text">购物车</text>
       </view>
       <view class="buy-now" @tap="buyNow">立即购买</view>

@@ -21,11 +21,10 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#fff",
     "easycom": {
       "autoscan": true,
       "custom": {
-        "^u--(.*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue",
         "^up-(.*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue",
         "^u-([^-].*)": "./uni_modules/uview-plus/components/u-$1/u-$1.vue"
       }
@@ -68,7 +67,7 @@
   ],
   "permission": {
     "scope.userLocation": {
-      "desc": ""
+      "desc": "测试使用"
     }
   },
   "usingComponents": {}

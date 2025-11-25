@@ -3,7 +3,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./pages/*"]
+      // "@/*": ["./pages/*"]
     },
     "lib": ["esnext", "dom"],
     "types": [
