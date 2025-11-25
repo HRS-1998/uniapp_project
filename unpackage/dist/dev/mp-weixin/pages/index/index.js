@@ -74,9 +74,6 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         }
       });
     };
-    const priceChange = (event) => {
-      price.value = event.detail.value;
-    };
     const onResetPopup = () => {
       price.value = 50;
       currTag.value = "non-right";
@@ -108,7 +105,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     common_vendor.onMounted(() => {
     });
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           title: "商城",
           back: false,
@@ -125,7 +122,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           placeholder: "请输入购买的商品",
           ["show-action"]: false,
           shape: "square",
-          searchIcon: "search",
+          searchIconColor: "#909399",
           modelValue: searchData.value
         }),
         g: common_vendor.p({
@@ -159,14 +156,16 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         q: common_vendor.n({
           "tag__item--checked": currTag.value === "right"
         }),
-        r: common_vendor.o(priceChange),
+        r: show.value
+      }, show.value ? {
         s: common_vendor.o(($event) => price.value = $event),
         t: common_vendor.p({
           ["active-color"]: "#ee0a24",
           min: 0,
           max: 100,
           modelValue: price.value
-        }),
+        })
+      } : {}, {
         v: common_vendor.o(onResetPopup),
         w: common_vendor.o(onSubmitPopup),
         x: common_vendor.o(onClosePopup),
@@ -187,7 +186,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         C: common_assets._imports_2,
         D: common_assets._imports_3,
         E: common_vendor.gei(_ctx, "")
-      };
+      });
     };
   }
 });

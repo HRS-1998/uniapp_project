@@ -8,7 +8,8 @@
 				<u-sticky offset-top="30">
 					<view>
 						<LocationPicker @tap="bindMapTap" :show-icon="true" />
-						<view class="shop__top-search"><u-search @search="onSearch" placeholder="请输入购买的商品" v-model="searchData" :show-action="false" shape="square" searchIcon="search"></u-search>
+						<view class="shop__top-search"><u-search @search="onSearch" placeholder="请输入购买的商品"
+								v-model="searchData" :show-action="false" shape="square"  searchIconColor="#909399"></u-search>
 						</view>
 					</view>
 				</u-sticky>
@@ -50,8 +51,7 @@
 							<text class="title">人均价筛选</text>
 						</view>
 						<view class="mt-20">
-							<u-slider v-model="price" @change="priceChange" active-color="#ee0a24" :min="0"
-								:max="100" />
+							<u-slider v-model="price" v-if="show" active-color="#ee0a24" :min="0" :max="100" />
 						</view>
 						<view class="mt-20 goods-choose__btn">
 							<view class="btn btn-reset" @tap="onResetPopup">重置</view>
@@ -121,7 +121,7 @@
 	const currTag = ref('non-right');
 	const price = ref(50);
 	const address = ref('');
-	const searchData= ref('');
+	const searchData = ref('');
 	const list = ref([
 		{
 			id: 56,
@@ -174,9 +174,9 @@
 		});
 	};
 
-	const priceChange = (event : any) => {
-		price.value = event.detail.value;
-	};
+	// const priceChange = (event : any) => {
+	// 	price.value = event.detail.value;
+	// };
 
 	const onResetPopup = () => {
 		price.value = 50;
@@ -318,10 +318,10 @@
 		}
 
 		&__top-search {
-		margin-top: 2px;
-		padding:0 20rpx;
-		box-sizing: border-box;
-		
+			margin-top: 2px;
+			padding: 0 20rpx;
+			box-sizing: border-box;
+
 		}
 
 		.u-cell:after {
@@ -343,26 +343,28 @@
 			transition-duration: 0;
 
 			::v-deep .u-subsection {
-				width:683rpx;
+				width: 683rpx;
 				overflow-x: auto;
+
 				.u-subsection__item {
-					min-width:160rpx;
+					min-width: 160rpx;
 					transition-duration: 0;
-				    &:active{
+
+					&:active {
 						// background-color: #f22;
 					}
-				}	
-			
+				}
+
 			}
 
-		
+
 			.more {
 				position: absolute;
 				width: 40rpx;
 				height: 40rpx;
-				top:calc(50% + 20rpx);
+				top: 40rpx;
 				right: 22rpx;
-				transform:translateY(-50% );
+				transform: translateY(-50%);
 			}
 		}
 

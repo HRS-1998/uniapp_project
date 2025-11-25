@@ -74,9 +74,6 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         }
       });
     };
-    const priceChange = (event) => {
-      price.value = event.detail.value;
-    };
     const onResetPopup = () => {
       price.value = 50;
       currTag.value = "non-right";
@@ -108,7 +105,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     common_vendor.onMounted(() => {
     });
     return (_ctx, _cache) => {
-      return {
+      return common_vendor.e({
         a: common_vendor.p({
           title: "商城",
           back: false,
@@ -127,7 +124,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           placeholder: "请输入购买的商品",
           ["show-action"]: false,
           shape: "square",
-          searchIcon: "search",
+          searchIconColor: "#909399",
           modelValue: searchData.value
         }),
         f: common_vendor.p({
@@ -163,39 +160,41 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         p: common_vendor.n({
           "tag__item--checked": currTag.value === "right"
         }),
-        q: common_vendor.j({
-          "change": common_vendor.o(priceChange),
+        q: show.value
+      }, show.value ? {
+        r: common_vendor.j({
           "updateModelValue": common_vendor.o(($event) => price.value = $event)
         }),
-        r: common_vendor.p({
+        s: common_vendor.p({
           ["active-color"]: "#ee0a24",
           min: 0,
           max: 100,
           modelValue: price.value
-        }),
-        s: common_vendor.o(onResetPopup),
-        t: common_vendor.o(onSubmitPopup),
-        v: common_vendor.j({
+        })
+      } : {}, {
+        t: common_vendor.o(onResetPopup),
+        v: common_vendor.o(onSubmitPopup),
+        w: common_vendor.j({
           "close": common_vendor.o(onClosePopup),
           "updateShow": common_vendor.o(($event) => show.value = $event)
         }),
-        w: common_vendor.p({
+        x: common_vendor.p({
           position: "top",
           show: show.value
         }),
-        x: common_vendor.f(list.value, (item, index, i0) => {
+        y: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: item.id,
             b: common_vendor.t(item.name),
             c: index
           };
         }),
-        y: common_assets._imports_1,
-        z: common_assets._imports_2,
-        A: common_vendor.o(bindDetailTap),
-        B: common_assets._imports_3,
-        C: common_vendor.gei(_ctx, "")
-      };
+        z: common_assets._imports_1,
+        A: common_assets._imports_2,
+        B: common_vendor.o(bindDetailTap),
+        C: common_assets._imports_3,
+        D: common_vendor.gei(_ctx, "")
+      });
     };
   }
 });

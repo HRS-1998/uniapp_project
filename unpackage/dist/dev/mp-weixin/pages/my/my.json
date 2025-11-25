@@ -2,8 +2,6 @@
   "navigationStyle": "custom",
   "navigationBarTextStyle": "black",
   "usingComponents": {
-    "u-sticky": "../../uni_modules/uview-plus/components/u-sticky/u-sticky",
-    "u-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
-    "navigation-bar": "../../components/navigation-bar"
+    "u-image": "../../uni_modules/uview-plus/components/u-image/u-image"
   }
 }

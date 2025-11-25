@@ -132,7 +132,7 @@
   position: absolute;
   width: 40rpx;
   height: 40rpx;
-  top: calc(50% + 20rpx);
+  top: 40rpx;
   right: 22rpx;
   transform: translateY(-50%);
 }
