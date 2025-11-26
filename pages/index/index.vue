@@ -5,7 +5,7 @@
 		</u-sticky>
 		<view class="shop">
 			<view class="shop__top-con">
-				<u-sticky offset-top="30">
+				<u-sticky >
 					<view>
 						<LocationPicker @tap="bindMapTap" :show-icon="true" />
 						<view class="shop__top-search"><u-search @search="onSearch" placeholder="请输入购买的商品"
@@ -18,7 +18,7 @@
 					<u-image width="100%" height="100" radius="8px"
 						src="https://innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png" />
 				</view>
-				<u-sticky offset-top="180">
+				<u-sticky offset-top="150">
 					<view class="shop__tabs">
 						<u-subsection :current="curTab" :list="tabs" mode="button" @change="onTabsChange"
 							bgColor="#f3f3f3" activeColor="#ff6759" :bold="true">
@@ -228,7 +228,6 @@
 
 <style lang="scss" scoped>
 	.shop {
-		// margin-top:90rpx;
 		background: #f5f5f5;
 		height: 100vh;
 
@@ -329,7 +328,7 @@
 		}
 
 		&__banner {
-			padding: 70rpx 22rpx 0;
+			padding:12rpx 22rpx 0;
 		}
 
 		&__tabs {

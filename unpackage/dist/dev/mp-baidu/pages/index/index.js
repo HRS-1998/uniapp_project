@@ -128,18 +128,15 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           modelValue: searchData.value
         }),
         f: common_vendor.p({
-          ["offset-top"]: "30"
-        }),
-        g: common_vendor.p({
           width: "100%",
           height: "100",
           radius: "8px",
           src: "https://innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png"
         }),
-        h: common_vendor.j({
+        g: common_vendor.j({
           "change": common_vendor.o(onTabsChange)
         }),
-        i: common_vendor.p({
+        h: common_vendor.p({
           current: curTab.value,
           list: tabs.value,
           mode: "button",
@@ -147,53 +144,53 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           activeColor: "#ff6759",
           bold: true
         }),
-        j: common_vendor.o(showPopup),
-        k: common_assets._imports_0,
-        l: common_vendor.p({
-          ["offset-top"]: "180"
+        i: common_vendor.o(showPopup),
+        j: common_assets._imports_0,
+        k: common_vendor.p({
+          ["offset-top"]: "150"
         }),
-        m: common_vendor.o(onTag),
-        n: common_vendor.n({
+        l: common_vendor.o(onTag),
+        m: common_vendor.n({
           "tag__item--checked": currTag.value === "non-right"
         }),
-        o: common_vendor.o(onTag),
-        p: common_vendor.n({
+        n: common_vendor.o(onTag),
+        o: common_vendor.n({
           "tag__item--checked": currTag.value === "right"
         }),
-        q: show.value
+        p: show.value
       }, show.value ? {
-        r: common_vendor.j({
+        q: common_vendor.j({
           "updateModelValue": common_vendor.o(($event) => price.value = $event)
         }),
-        s: common_vendor.p({
+        r: common_vendor.p({
           ["active-color"]: "#ee0a24",
           min: 0,
           max: 100,
           modelValue: price.value
         })
       } : {}, {
-        t: common_vendor.o(onResetPopup),
-        v: common_vendor.o(onSubmitPopup),
-        w: common_vendor.j({
+        s: common_vendor.o(onResetPopup),
+        t: common_vendor.o(onSubmitPopup),
+        v: common_vendor.j({
           "close": common_vendor.o(onClosePopup),
           "updateShow": common_vendor.o(($event) => show.value = $event)
         }),
-        x: common_vendor.p({
+        w: common_vendor.p({
           position: "top",
           show: show.value
         }),
-        y: common_vendor.f(list.value, (item, index, i0) => {
+        x: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: item.id,
             b: common_vendor.t(item.name),
             c: index
           };
         }),
-        z: common_assets._imports_1,
-        A: common_assets._imports_2,
-        B: common_vendor.o(bindDetailTap),
-        C: common_assets._imports_3,
-        D: common_vendor.gei(_ctx, "")
+        y: common_assets._imports_1,
+        z: common_assets._imports_2,
+        A: common_vendor.o(bindDetailTap),
+        B: common_assets._imports_3,
+        C: common_vendor.gei(_ctx, "")
       });
     };
   }

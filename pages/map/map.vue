@@ -71,7 +71,6 @@ onMounted(() => {
 <template>
   <view class="map-container">
     <NavigationBar title="地图" :back="true" color="black" background="#FFF" />
-    
     <view class="map-wrapper">
       <map
         :latitude="latitude"

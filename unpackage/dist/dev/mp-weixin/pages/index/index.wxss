@@ -108,7 +108,7 @@
   border: 0;
 }
 .shop__banner.data-v-1cf27b2a {
-  padding: 70rpx 22rpx 0;
+  padding: 12rpx 22rpx 0;
 }
 .shop__tabs.data-v-1cf27b2a {
   position: relative;

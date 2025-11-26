@@ -1,13 +1,16 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 if (!Array) {
+  const _easycom_u_sticky2 = common_vendor.resolveComponent("u-sticky");
   const _easycom_u_image2 = common_vendor.resolveComponent("u-image");
-  _easycom_u_image2();
+  (_easycom_u_sticky2 + _easycom_u_image2)();
 }
+const _easycom_u_sticky = () => "../../uni_modules/uview-plus/components/u-sticky/u-sticky.js";
 const _easycom_u_image = () => "../../uni_modules/uview-plus/components/u-image/u-image.js";
 if (!Math) {
-  _easycom_u_image();
+  (NavigationBar + _easycom_u_sticky + _easycom_u_image)();
 }
+const NavigationBar = () => "../../components/navigation-bar.js";
 const _sfc_main = {
   __name: "my",
   setup(__props) {
@@ -15,11 +18,17 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return {
         a: common_vendor.p({
+          title: "我的",
+          back: false,
+          color: "black",
+          background: "#FFF"
+        }),
+        b: common_vendor.p({
           width: "100%",
           height: "300",
           src: "//innerstatic.tcy365.com/static/tcy365-rpashop/assets/img/top-bg.38856a6a.png"
         }),
-        b: common_vendor.gei(_ctx, "")
+        c: common_vendor.gei(_ctx, "")
       };
     };
   }

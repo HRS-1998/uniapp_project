@@ -1,24 +1,19 @@
 {
-    "appid": "17767960",
-    "compilation-args": {
-        "common": {
-            "babelSetting": {
-                "ignore": []
-            },
-            "enhance": true,
-            "ignorePrefixCss": false,
-            "quickPreview": true
-        },
-        "selected": -2,
-        "forceChanged": {}
+  "appid": "17767960",
+  "compilation-args": {
+    "common": {
+      "babelSetting": {
+        "ignore": []
+      },
+      "enhance": true,
+      "ignorePrefixCss": false
     },
-    "host": "baiduboxapp",
-    "projectname": "minprogram_share",
-    "setting": {
-        "autoAudits": false,
-        "urlCheck": false
-    },
-    "preview": {
-        "packageId": 1757933
-    }
+    "selected": -3
+  },
+  "host": "baiduboxapp",
+  "projectname": "minprogram_share",
+  "setting": {
+    "autoAudits": false,
+    "urlCheck": false
+  }
 }

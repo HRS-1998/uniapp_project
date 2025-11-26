@@ -1,9 +1,9 @@
 
 <template>
-  <view class="weui-navigation-bar">
+  <view class="weui-navigation-bar" :style="navigationbarStyle">
     <view 
       class="weui-navigation-bar__inner" 
-      :style="{ color: props.color, background: props.background, height: props.height }"
+	  :style="navigationbarContentStyle"
     >
       <!-- 左侧按钮 -->
       <view class="weui-navigation-bar__left">
@@ -30,7 +30,7 @@
       </view>
   
       <!-- 标题 -->
-      <view class="weui-navigation-bar__center">
+      <view class="weui-navigation-bar__center" >
         <template v-if="props.title">
           <text>{{ props.title }}</text>
         </template>
@@ -47,7 +47,7 @@
   </view>
 </template>
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted,ref } from 'vue';
 
 // Props定义
 const props = defineProps<{
@@ -55,25 +55,9 @@ const props = defineProps<{
   back?: boolean;
   color?: string;
   background?: string;
-  height?: string;
 }>();
 
-// 计算属性
-const style = computed(() => {
-  return {
-    backgroundColor: props.background || '#ffffff',
-    color: props.color || '#000000',
-    height: props.height || '90rpx'
-  };
-});
 
-const titleStyle = computed(() => {
-  return {
-    color: props.color || '#000000'
-  };
-});
-
-// 方法定义
 const handleBack = () => {
   uni.navigateBack();
 };
@@ -84,41 +68,45 @@ const handleHome = () => {
   });
 };
 
+const navigationbarStyle=ref({})
+const navigationbarContentStyle=ref({})
 // 生命周期
 onMounted(() => {
-  // 获取系统信息
-  const systemInfo = uni.getSystemInfoSync();
-  const statusBarHeight = systemInfo.statusBarHeight;
-  console.log('状态栏高度:', statusBarHeight);
+  // 获取状态栏高度
+  const windowInfo = uni.getWindowInfo();
+  const statusBarHeight = windowInfo.statusBarHeight;
+  navigationbarStyle.value={
+  	  height:`${statusBarHeight+44}px`
+  }
+  //  获取胶囊按钮高度
+  const {top,height}=uni.getMenuButtonBoundingClientRect();
+  console.log(uni.getMenuButtonBoundingClientRect(),'胶囊信息	')
+  navigationbarContentStyle.value={
+	  backgroundColor: props.background || '#ffffff',
+	  color: props.color || '#000000',
+	  height:`${height}px`,
+	  top:`${top}px`,
+  }
 });
 </script>
 
 <style lang="scss" scoped>
-.weui-navigation-bar {
-  --weui-FG-0:rgba(0,0,0,.9);
-  --height: 44px;
-  --left: 16px;
-}
-.weui-navigation-bar .android {
-  --height: 48px;
-}
 
 .weui-navigation-bar {
+	--weui-FG-0:rgba(0,0,0,.9);
+	--height: 44px;
+	--left: 16px;
+	position: relative;
   overflow: hidden;
   color: var(--weui-FG-0);
   flex: none;
 }
 
 .weui-navigation-bar__inner {
-  position: relative;
-  top: 0;
-  left: 0;
-  height: calc(var(--height) + env(safe-area-inset-top));
+  position: absolute;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding-top: env(safe-area-inset-top);
   width: 100%;
   box-sizing: border-box;
 }

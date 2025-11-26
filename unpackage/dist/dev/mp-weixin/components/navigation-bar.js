@@ -6,30 +6,29 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     title: {},
     back: { type: Boolean },
     color: {},
-    background: {},
-    height: {}
+    background: {}
   },
   setup(__props) {
     const props = __props;
-    common_vendor.computed(() => {
-      return {
-        backgroundColor: props.background || "#ffffff",
-        color: props.color || "#000000",
-        height: props.height || "90rpx"
-      };
-    });
-    common_vendor.computed(() => {
-      return {
-        color: props.color || "#000000"
-      };
-    });
     const handleBack = () => {
       common_vendor.index.navigateBack();
     };
+    const navigationbarStyle = common_vendor.ref({});
+    const navigationbarContentStyle = common_vendor.ref({});
     common_vendor.onMounted(() => {
-      const systemInfo = common_vendor.index.getSystemInfoSync();
-      const statusBarHeight = systemInfo.statusBarHeight;
-      common_vendor.index.__f__("log", "at components/navigation-bar.vue:92", "状态栏高度:", statusBarHeight);
+      const windowInfo = common_vendor.index.getWindowInfo();
+      const statusBarHeight = windowInfo.statusBarHeight;
+      navigationbarStyle.value = {
+        height: `${statusBarHeight + 44}px`
+      };
+      const { top, height } = common_vendor.index.getMenuButtonBoundingClientRect();
+      common_vendor.index.__f__("log", "at components/navigation-bar.vue:83", common_vendor.index.getMenuButtonBoundingClientRect(), "胶囊信息	");
+      navigationbarContentStyle.value = {
+        backgroundColor: props.background || "#ffffff",
+        color: props.color || "#000000",
+        height: `${height}px`,
+        top: `${top}px`
+      };
     });
     return (_ctx, _cache) => {
       return common_vendor.e({
@@ -43,10 +42,9 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       }, props.title ? {
         e: common_vendor.t(props.title)
       } : {}, {
-        f: props.color,
-        g: props.background,
-        h: props.height,
-        i: common_vendor.gei(_ctx, "")
+        f: common_vendor.s(navigationbarContentStyle.value),
+        g: common_vendor.s(navigationbarStyle.value),
+        h: common_vendor.gei(_ctx, "")
       });
     };
   }

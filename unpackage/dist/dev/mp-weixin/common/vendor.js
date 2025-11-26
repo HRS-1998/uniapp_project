@@ -8121,7 +8121,6 @@ function createPinia() {
   return pinia;
 }
 exports._export_sfc = _export_sfc;
-exports.computed = computed;
 exports.createPinia = createPinia;
 exports.createSSRApp = createSSRApp;
 exports.defineComponent = defineComponent;

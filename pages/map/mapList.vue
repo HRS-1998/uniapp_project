@@ -30,7 +30,6 @@ const locationList = ref([
   }
 ]);
 
-// 方法定义
 const selectLocation = (item: any) => {
   console.log('选择了位置', item);
   // 这里可以添加选择位置后的逻辑
