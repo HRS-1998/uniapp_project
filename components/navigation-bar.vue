@@ -48,7 +48,7 @@
 </template>
 <script setup lang="ts">
 import { computed, onMounted,ref } from 'vue';
-
+import { useGlobalOptionStore} from '../store/global'
 // Props定义
 const props = defineProps<{
   title: string;
@@ -57,7 +57,7 @@ const props = defineProps<{
   background?: string;
 }>();
 
-
+const {updateHeight} =useGlobalOptionStore() 
 const handleBack = () => {
   uni.navigateBack();
 };
@@ -73,14 +73,28 @@ const navigationbarContentStyle=ref({})
 // 生命周期
 onMounted(() => {
   // 获取状态栏高度
+  // #ifdef MP-BAIDU
+  const windowInfo = uni.getSystemInfoSync()
+  console.log(1,windowInfo.statusBarHeight)
+  // #endif
+   // #ifdef MP-WEIXIN
   const windowInfo = uni.getWindowInfo();
+  console.log(2,windowInfo.statusBarHeight)
+  // #endif
   const statusBarHeight = windowInfo.statusBarHeight;
+  
+  const navheight = statusBarHeight+44;
   navigationbarStyle.value={
-  	  height:`${statusBarHeight+44}px`
+	  background:props.background || '#fff',
+  	  height:`${navheight}px`,
   }
+  updateHeight(navheight)
+  
+  
+  
   //  获取胶囊按钮高度
   const {top,height}=uni.getMenuButtonBoundingClientRect();
-  console.log(uni.getMenuButtonBoundingClientRect(),'胶囊信息	')
+  console.log(uni.getMenuButtonBoundingClientRect(),'胶囊信息')
   navigationbarContentStyle.value={
 	  backgroundColor: props.background || '#ffffff',
 	  color: props.color || '#000000',
@@ -96,10 +110,13 @@ onMounted(() => {
 	--weui-FG-0:rgba(0,0,0,.9);
 	--height: 44px;
 	--left: 16px;
-	position: relative;
+  position: sticky;
+  top:0;
+  z-index:999;
   overflow: hidden;
   color: var(--weui-FG-0);
   flex: none;
+  background-color: #fff;
 }
 
 .weui-navigation-bar__inner {

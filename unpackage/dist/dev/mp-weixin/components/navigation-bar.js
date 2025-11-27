@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
+const store_global = require("../store/global.js");
 const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   __name: "navigation-bar",
   props: {
@@ -10,6 +11,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   },
   setup(__props) {
     const props = __props;
+    const { updateHeight } = store_global.useGlobalOptionStore();
     const handleBack = () => {
       common_vendor.index.navigateBack();
     };
@@ -17,12 +19,16 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
     const navigationbarContentStyle = common_vendor.ref({});
     common_vendor.onMounted(() => {
       const windowInfo = common_vendor.index.getWindowInfo();
+      common_vendor.index.__f__("log", "at components/navigation-bar.vue:82", 2, windowInfo.statusBarHeight);
       const statusBarHeight = windowInfo.statusBarHeight;
+      const navheight = statusBarHeight + 44;
       navigationbarStyle.value = {
-        height: `${statusBarHeight + 44}px`
+        background: props.background || "#fff",
+        height: `${navheight}px`
       };
+      updateHeight(navheight);
       const { top, height } = common_vendor.index.getMenuButtonBoundingClientRect();
-      common_vendor.index.__f__("log", "at components/navigation-bar.vue:83", common_vendor.index.getMenuButtonBoundingClientRect(), "胶囊信息	");
+      common_vendor.index.__f__("log", "at components/navigation-bar.vue:97", common_vendor.index.getMenuButtonBoundingClientRect(), "胶囊信息");
       navigationbarContentStyle.value = {
         backgroundColor: props.background || "#ffffff",
         color: props.color || "#000000",

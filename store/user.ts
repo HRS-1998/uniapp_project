@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { removeLocal } from '@/utils/localStorage.js'
 import {
   getToken,
   setToken,

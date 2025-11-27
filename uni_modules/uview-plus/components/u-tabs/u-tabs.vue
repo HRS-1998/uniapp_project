@@ -178,10 +178,10 @@
 		},
 		async mounted() {
 			this.init()
-            // this.windowResizeCallback = (res) => {
-            //     this.init()
-            // }
-            // uni.onWindowResize(this.windowResizeCallback)
+            this.windowResizeCallback = (res) => {
+                this.init()
+            }
+            uni.onWindowResize(this.windowResizeCallback)
 		},
         beforeUnmount() {
             uni.offWindowResize(this.windowResizeCallback)

@@ -1,29 +1,31 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
+const store_global = require("../../store/global.js");
 if (!Array) {
-  const _easycom_u_sticky2 = common_vendor.resolveComponent("u-sticky");
   const _easycom_u_search2 = common_vendor.resolveComponent("u-search");
   const _easycom_u_image2 = common_vendor.resolveComponent("u-image");
   const _easycom_u_subsection2 = common_vendor.resolveComponent("u-subsection");
   const _easycom_u_slider2 = common_vendor.resolveComponent("u-slider");
   const _easycom_u_popup2 = common_vendor.resolveComponent("u-popup");
-  (_easycom_u_sticky2 + _easycom_u_search2 + _easycom_u_image2 + _easycom_u_subsection2 + _easycom_u_slider2 + _easycom_u_popup2)();
+  (_easycom_u_search2 + _easycom_u_image2 + _easycom_u_subsection2 + _easycom_u_slider2 + _easycom_u_popup2)();
 }
-const _easycom_u_sticky = () => "../../uni_modules/uview-plus/components/u-sticky/u-sticky.js";
 const _easycom_u_search = () => "../../uni_modules/uview-plus/components/u-search/u-search.js";
 const _easycom_u_image = () => "../../uni_modules/uview-plus/components/u-image/u-image.js";
 const _easycom_u_subsection = () => "../../uni_modules/uview-plus/components/u-subsection/u-subsection.js";
 const _easycom_u_slider = () => "../../uni_modules/uview-plus/components/u-slider/u-slider.js";
 const _easycom_u_popup = () => "../../uni_modules/uview-plus/components/u-popup/u-popup.js";
 if (!Math) {
-  (NavigationBar + _easycom_u_sticky + LocationPicker + _easycom_u_search + _easycom_u_image + _easycom_u_subsection + _easycom_u_slider + _easycom_u_popup)();
+  (NavigationBar + LocationPicker + _easycom_u_search + _easycom_u_image + _easycom_u_subsection + _easycom_u_slider + _easycom_u_popup)();
 }
 const NavigationBar = () => "../../components/navigation-bar.js";
 const LocationPicker = () => "../../components/location-picker.js";
 const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
   __name: "index",
   setup(__props) {
+    const { navigationbarStyleHeight } = store_global.useGlobalOptionStore();
+    common_vendor.index.__f__("log", "at pages/index/index.vue:115", navigationbarStyleHeight, "高度");
+    common_vendor.index.__f__("log", "at pages/index/index.vue:116", "mmm");
     const show = common_vendor.ref(false);
     common_vendor.ref("home");
     const currTag = common_vendor.ref("non-right");
@@ -53,7 +55,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       show.value = true;
     };
     const bindMapTap = (title) => {
-      common_vendor.index.__f__("log", "at pages/index/index.vue:154", title, "地址");
+      common_vendor.index.__f__("log", "at pages/index/index.vue:152", title, "地址");
     };
     const bindDetailTap = () => {
       common_vendor.index.showLoading({
@@ -66,7 +68,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         },
         fail: (err) => {
           common_vendor.index.hideLoading();
-          common_vendor.index.__f__("error", "at pages/index/index.vue:168", "页面跳转失败", err);
+          common_vendor.index.__f__("error", "at pages/index/index.vue:166", "页面跳转失败", err);
           common_vendor.index.showToast({
             title: "跳转失败",
             icon: "none"
@@ -85,8 +87,6 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
       });
     };
     const onSearch = (event) => {
-      common_vendor.index.__f__("log", "at pages/index/index.vue:194", event.detail);
-      getList();
     };
     const onTabsChange = (event) => {
       getList();
@@ -124,7 +124,7 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
           placeholder: "请输入购买的商品",
           ["show-action"]: false,
           shape: "square",
-          searchIconColor: "#909399",
+          searchIconColor: "#fff",
           modelValue: searchData.value
         }),
         f: common_vendor.p({
@@ -146,51 +146,48 @@ const _sfc_main = /* @__PURE__ */ common_vendor.defineComponent({
         }),
         i: common_vendor.o(showPopup),
         j: common_assets._imports_0,
-        k: common_vendor.p({
-          ["offset-top"]: "150"
-        }),
-        l: common_vendor.o(onTag),
-        m: common_vendor.n({
+        k: common_vendor.o(onTag),
+        l: common_vendor.n({
           "tag__item--checked": currTag.value === "non-right"
         }),
-        n: common_vendor.o(onTag),
-        o: common_vendor.n({
+        m: common_vendor.o(onTag),
+        n: common_vendor.n({
           "tag__item--checked": currTag.value === "right"
         }),
-        p: show.value
+        o: show.value
       }, show.value ? {
-        q: common_vendor.j({
+        p: common_vendor.j({
           "updateModelValue": common_vendor.o(($event) => price.value = $event)
         }),
-        r: common_vendor.p({
+        q: common_vendor.p({
           ["active-color"]: "#ee0a24",
           min: 0,
           max: 100,
           modelValue: price.value
         })
       } : {}, {
-        s: common_vendor.o(onResetPopup),
-        t: common_vendor.o(onSubmitPopup),
-        v: common_vendor.j({
+        r: common_vendor.o(onResetPopup),
+        s: common_vendor.o(onSubmitPopup),
+        t: common_vendor.j({
           "close": common_vendor.o(onClosePopup),
           "updateShow": common_vendor.o(($event) => show.value = $event)
         }),
-        w: common_vendor.p({
+        v: common_vendor.p({
           position: "top",
           show: show.value
         }),
-        x: common_vendor.f(list.value, (item, index, i0) => {
+        w: common_vendor.f(list.value, (item, index, i0) => {
           return {
             a: item.id,
             b: common_vendor.t(item.name),
             c: index
           };
         }),
-        y: common_assets._imports_1,
-        z: common_assets._imports_2,
-        A: common_vendor.o(bindDetailTap),
-        B: common_assets._imports_3,
-        C: common_vendor.gei(_ctx, "")
+        x: common_assets._imports_1,
+        y: common_assets._imports_2,
+        z: common_vendor.o(bindDetailTap),
+        A: common_assets._imports_3,
+        B: common_vendor.gei(_ctx, "")
       });
     };
   }

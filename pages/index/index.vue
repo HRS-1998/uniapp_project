@@ -1,31 +1,26 @@
 <template>
 	<view>
-		<u-sticky>
-			<NavigationBar title="商城" :back="false" color="black" background="#FFF" />
-		</u-sticky>
+		<NavigationBar title="商城" :back="false" color="black" background="#FFF" />
 		<view class="shop">
 			<view class="shop__top-con">
-				<u-sticky >
 					<view>
 						<LocationPicker @tap="bindMapTap" :show-icon="true" />
-						<view class="shop__top-search"><u-search @search="onSearch" placeholder="请输入购买的商品"
-								v-model="searchData" :show-action="false" shape="square"  searchIconColor="#909399"></u-search>
+						<view class="shop__top-search">
+							<u-search @search="onSearch" placeholder="请输入购买的商品" v-model="searchData"
+								:show-action="false" shape="square" searchIconColor="#fff" ></u-search>
 						</view>
 					</view>
-				</u-sticky>
 				<view class="shop__banner">
 					<!-- <u-image width="100%" height="100" src="//innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png" /> -->
 					<u-image width="100%" height="100" radius="8px"
 						src="https://innerstatic.tcy365.com/static/108sq-aihuasuanbeta/assets/img/banner-community.2a2a31b8.png" />
 				</view>
-				<u-sticky offset-top="150">
 					<view class="shop__tabs">
 						<u-subsection :current="curTab" :list="tabs" mode="button" @change="onTabsChange"
 							bgColor="#f3f3f3" activeColor="#ff6759" :bold="true">
 						</u-subsection>
 						<image class="more" @tap="showPopup" src="/static/img/more.png" mode="aspectFill"></image>
 					</view>
-				</u-sticky>
 			</view>
 
 			<u-popup v-model:show="show" position="top" @close="onClosePopup">
@@ -112,10 +107,13 @@
 
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue';
+	import { useGlobalOptionStore } from '../../store/global';
 	import NavigationBar from '../../components/navigation-bar.vue';
 	import LocationPicker from '../../components/location-picker.vue';
 
-
+	const { navigationbarStyleHeight } = useGlobalOptionStore()
+	console.log(navigationbarStyleHeight, '高度')
+	console.log('mmm')
 	const show = ref(false);
 	const current = ref('home');
 	const currTag = ref('non-right');
@@ -191,8 +189,8 @@
 	};
 
 	const onSearch = (event : any) => {
-		console.log(event.detail);
-		getList();
+		// console.log(event.detail);
+		// getList();
 	};
 
 	const onTabsChange = (event : any) => {
@@ -229,7 +227,7 @@
 <style lang="scss" scoped>
 	.shop {
 		background: #f5f5f5;
-		height: 100vh;
+		// height: 100vh;
 
 		.popup {
 			background: #fff;
@@ -317,8 +315,8 @@
 		}
 
 		&__top-search {
-			margin-top: 2px;
-			padding: 0 20rpx;
+			margin-top: 12rpx;
+			padding: 0 22rpx;
 			box-sizing: border-box;
 
 		}
@@ -328,12 +326,13 @@
 		}
 
 		&__banner {
-			padding:12rpx 22rpx 0;
+			padding: 12rpx 22rpx 0;
 		}
 
 		&__tabs {
 			position: relative;
-			padding: 20rpx 92rpx 0 22rpx;
+			margin-top:12rpx;
+			padding: 0 92rpx 0 22rpx;
 			box-sizing: border-box;
 			overflow: hidden;
 			background-color: #f3f3f3;
@@ -361,7 +360,7 @@
 				position: absolute;
 				width: 40rpx;
 				height: 40rpx;
-				top: 40rpx;
+				top: 50%;
 				right: 22rpx;
 				transform: translateY(-50%);
 			}
@@ -370,6 +369,9 @@
 		&__goodslist {
 			padding: 16rpx 22rpx 180rpx;
 			box-sizing: border-box;
+			height:800rpx;
+			overflow:hidden;
+			overflow: auto;
 
 			.goodslist__box {
 				border-radius: 20rpx;

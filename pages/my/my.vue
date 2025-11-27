@@ -1,11 +1,9 @@
 <template>
 	<!--pages/my/my.wxml-->
 	<view class="my">
-		<u-sticky>
 			<NavigationBar title="我的" :back="false" color="black" background="#FFF" />
-		</u-sticky>
 		<view class="my-bg"><u-image width="100%" height="300"
-				src="//innerstatic.tcy365.com/static/tcy365-rpashop/assets/img/top-bg.38856a6a.png" /></view>
+				src="https://innerstatic.tcy365.com/static/tcy365-rpashop/assets/img/top-bg.38856a6a.png" /></view>
 		<view class="userinfo">
 			<view class="userinfo__con">
 				<view class="userinfo__img"><!--图片--></view>

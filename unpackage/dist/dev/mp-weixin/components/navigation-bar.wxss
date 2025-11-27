@@ -27,10 +27,14 @@
   --weui-FG-0:rgba(0,0,0,.9);
   --height: 44px;
   --left: 16px;
-  position: relative;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
   overflow: hidden;
   color: var(--weui-FG-0);
   flex: none;
+  background-color: #fff;
 }
 .weui-navigation-bar__inner.data-v-04463a9d {
   position: absolute;
